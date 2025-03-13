@@ -37,10 +37,10 @@
         </div>
         <header class="d-flex justify-content-between align-items-center px-5">
             <div>
-                <i class="fa-solid fa-bars-progress" style="color: #fff" data-bs-target="#sidebar" data-bs-toggle="offcanvas"></i>
+                <i class="fa-solid fa-bars-progress" data-bs-target="#sidebar" data-bs-toggle="offcanvas"></i>
             </div>
             <figure>
-                <img :src="'assets/images/music-alley-logo-inverted.png'" alt="logo" style="margin-top: 13px;">
+                <img :src="'assets/images/music-alley-logo-inverted.png'" alt="logo">
             </figure>    
             <a href="" class="text-decoration-none fw-bold text-white">Keaton Murray <i class="fa-solid fa-caret-down ms-1"></i></a>
         </header>
@@ -123,7 +123,7 @@
                                 </td>
                                 <td>
                                     Approved 
-                                    <i class="fa-solid fa-circle-check ms-1" style="color: green; margin-left: 30px !important;"></i>
+                                    <i class="fa-solid fa-circle-check ms-1"></i>
                                 </td>
                                 <td>2025-02-22</td>
                                 <td class="d-flex">
@@ -140,7 +140,7 @@
                                 </td>
                                 <td>
                                     Draft 
-                                    <i class="fa-solid fa-clock ms-1" style="color:rgb(241, 241, 0); margin-left: 63px !important"></i>
+                                    <i class="fa-solid fa-clock ms-1"></i>
                                 </td>
                                 <td>2025-02-21</td>
                                 <td class="d-flex">
@@ -157,7 +157,7 @@
                                 </td>
                                 <td>
                                     Under Review
-                                    <i class="fa-solid fa-circle-question ms-1" style="color: red;"></i>
+                                    <i class="fa-solid fa-circle-question ms-1"></i>
                                 </td>
                                 <td>2025-02-21</td>
                                 <td class="d-flex">
@@ -200,7 +200,6 @@
             EditNews
         }, 
         mounted() {
-
         const modal = document.getElementById('staticBackdrop');
           modal.addEventListener('shown.bs.modal', () => {
               if (!this.quill) {
@@ -258,3 +257,23 @@
         }
     }
 </script>
+
+<style scoped>
+    .fa-clock {
+        color:rgb(241, 241, 0); 
+        margin-left: 70px !important;
+    }
+    .fa-bars-progress {
+        color: #fff;
+    }
+    .fa-circle-check {
+        color: green; 
+        margin-left: 30px !important;
+    }
+    .fa-circle-question {
+        color: red;
+    }
+    header img {
+        margin-top: 13px;
+    }
+</style>
