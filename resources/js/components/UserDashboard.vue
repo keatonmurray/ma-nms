@@ -107,7 +107,7 @@
                                     <i class="fa-solid fa-circle-check ms-1"></i>
                                 </td>
                                 <td>2025-02-22</td>
-                                <td class="d-flex">
+                                <td class="d-flex action-btn">
                                     <button class="btn btn-sm btn-dark me-1" data-bs-toggle="modal" data-bs-target="#editNews"><i class="fa-solid fa-pen-to-square"></i></button>
                                     <button class="btn btn-sm btn-dark"><i class="fa-solid fa-trash"></i></button>
                                 </td>
@@ -120,7 +120,7 @@
                                     <i class="fa-solid fa-clock ms-1"></i>
                                 </td>
                                 <td>2025-02-21</td>
-                                <td class="d-flex">
+                                <td class="d-flex action-btn">
                                     <button class="btn btn-sm btn-dark me-1" data-bs-toggle="modal" data-bs-target="#editNews"><i class="fa-solid fa-pen-to-square"></i></button>
                                     <button class="btn btn-sm btn-dark"><i class="fa-solid fa-trash"></i></button>
                                 </td>
@@ -133,7 +133,7 @@
                                     <i class="fa-solid fa-circle-question ms-1"></i>
                                 </td>
                                 <td>2025-02-21</td>
-                                <td class="d-flex">
+                                <td class="d-flex action-btn">
                                     <button class="btn btn-sm btn-dark me-1" data-bs-toggle="modal" data-bs-target="#editNews"><i class="fa-solid fa-pen-to-square"></i></button>
                                     <button class="btn btn-sm btn-dark"><i class="fa-solid fa-trash"></i></button>
                                 </td>
@@ -163,18 +163,18 @@
 </script>
 
 <style scoped>
-    .fa-clock {
+    td .fa-clock {
         color:rgb(241, 241, 0); 
         margin-left: 70px !important;
     }
-    .fa-bars-progress {
+    td .fa-bars-progress {
         color: #fff;
     }
-    .fa-circle-check {
+    td .fa-circle-check {
         color: green; 
         margin-left: 30px !important;
     }
-    .fa-circle-question {
+    td .fa-circle-question {
         color: red;
     }
     header img {

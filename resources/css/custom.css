@@ -66,9 +66,9 @@ header figure img {
     width: 75px;
 }
 
-#news-table .btn {
+#news-table .action-btn .btn {
     height: 37px;
-    width: auto;
+    width: 37px;
 }
 
 thead.table-dark {

@@ -46,7 +46,7 @@
         </header>
         <div id="admin">
             <div class="create-news d-flex justify-content-between align-items-center p-5">
-                <h3>Welcome, Keaton!</h3>
+                <h3>Dashboard</h3>
                 <button class="btn btn-sm btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Create News</button>
             </div>
             <div class="row px-5">
@@ -126,9 +126,10 @@
                                     <i class="fa-solid fa-circle-check ms-1"></i>
                                 </td>
                                 <td>2025-02-22</td>
-                                <td class="d-flex">
-                                    <button class="btn btn-sm btn-dark me-1"><i class="fa-solid fa-eye"></i></button>
-                                    <button class="btn btn-sm btn-dark me-1"><i class="fa-solid fa-lock"></i></button>
+                                <td class="d-flex action-btn">
+                                    <button class="btn btn-sm btn-dark me-1" data-bs-toggle="modal" data-bs-target="#viewSubmissionModal"><i class="fa-solid fa-eye"></i></button>
+                                    <button class="btn btn-sm btn-dark me-1"><i class="fa-solid fa-check"></i></button>
+                                    <button class="btn btn-sm btn-dark me-1"><i class="fa-solid fa-xmark"></i></button>
                                     <button class="btn btn-sm btn-dark"><i class="fa-solid fa-trash"></i></button>
                                 </td>
                             </tr>
@@ -143,9 +144,10 @@
                                     <i class="fa-solid fa-clock ms-1"></i>
                                 </td>
                                 <td>2025-02-21</td>
-                                <td class="d-flex">
-                                    <button class="btn btn-sm btn-dark me-1"><i class="fa-solid fa-eye"></i></button>
-                                    <button class="btn btn-sm btn-dark me-1"><i class="fa-solid fa-lock"></i></button>
+                                <td class="d-flex action-btn">
+                                    <button class="btn btn-sm btn-dark me-1" data-bs-toggle="modal" data-bs-target="#viewSubmissionModal"><i class="fa-solid fa-eye"></i></button>
+                                    <button class="btn btn-sm btn-dark me-1"><i class="fa-solid fa-check"></i></button>
+                                    <button class="btn btn-sm btn-dark me-1"><i class="fa-solid fa-xmark"></i></button>
                                     <button class="btn btn-sm btn-dark"><i class="fa-solid fa-trash"></i></button>
                                 </td>
                             </tr>
@@ -160,9 +162,10 @@
                                     <i class="fa-solid fa-circle-question ms-1"></i>
                                 </td>
                                 <td>2025-02-21</td>
-                                <td class="d-flex">
-                                    <button class="btn btn-sm btn-dark me-1"><i class="fa-solid fa-eye"></i></button>
-                                    <button class="btn btn-sm btn-dark me-1"><i class="fa-solid fa-lock"></i></button>
+                                <td class="d-flex action-btn">
+                                    <button class="btn btn-sm btn-dark me-1" data-bs-toggle="modal" data-bs-target="#viewSubmissionModal"><i class="fa-solid fa-eye"></i></button>
+                                    <button class="btn btn-sm btn-dark me-1"><i class="fa-solid fa-check"></i></button>
+                                    <button class="btn btn-sm btn-dark me-1"><i class="fa-solid fa-xmark"></i></button>
                                     <button class="btn btn-sm btn-dark"><i class="fa-solid fa-trash"></i></button>
                                 </td>
                             </tr>
@@ -170,6 +173,7 @@
                          <!-- Modals -->
                         <CreateNews />
                         <EditNews />
+                        <ViewSubmission />
                         <!-- End Modals -->
                     </table>
                 </div>
@@ -180,8 +184,10 @@
 
 <script>
     import { Chart, LineController, LineElement, PointElement, LinearScale, CategoryScale, Title, Tooltip, Legend } from 'chart.js';
+    import { nextTick } from 'vue';
     import CreateNews from './modals/CreateNews.vue';
     import EditNews from './modals/EditNews.vue';
+    import ViewSubmission from './modals/ViewSubmission.vue';
 
     Chart.register(
         LineController,
@@ -197,21 +203,22 @@
     export default {
         components: {
             CreateNews,
-            EditNews
+            EditNews,
+            ViewSubmission
         }, 
         mounted() {
         const modal = document.getElementById('staticBackdrop');
-          modal.addEventListener('shown.bs.modal', () => {
-              if (!this.quill) {
-              nextTick(() => {
-                  if (this.$refs.editorEl) {
-                    this.quill = new Quill(this.$refs.editorEl, {
-                        theme: 'snow'
-                    });
-                  }
-              });
-              }
-          });
+        modal.addEventListener('shown.bs.modal', () => {
+            if (!this.quill) {
+            nextTick(() => {
+                if (this.$refs.editorEl) {
+                this.quill = new Quill(this.$refs.editorEl, {
+                    theme: 'snow'
+                });
+                }
+            });
+            }
+        });
 
         // User Engagement Chart
         const engagementCtx = document.getElementById('userEngagement').getContext('2d');
@@ -259,18 +266,18 @@
 </script>
 
 <style scoped>
-    .fa-clock {
+    td .fa-clock {
         color:rgb(241, 241, 0); 
         margin-left: 70px !important;
     }
-    .fa-bars-progress {
+    td .fa-bars-progress {
         color: #fff;
     }
-    .fa-circle-check {
+    td .fa-circle-check {
         color: green; 
         margin-left: 30px !important;
     }
-    .fa-circle-question {
+    td .fa-circle-question {
         color: red;
     }
     header img {
