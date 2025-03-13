@@ -35,15 +35,7 @@
                 </ul>
             </div>
         </div>
-        <header class="d-flex justify-content-between align-items-center px-5">
-            <div>
-                <i class="fa-solid fa-bars-progress" data-bs-target="#sidebar" data-bs-toggle="offcanvas"></i>
-            </div>
-            <figure>
-                <img :src="'assets/images/music-alley-logo-inverted.png'" alt="logo">
-            </figure>    
-            <a href="" class="text-decoration-none fw-bold text-white">John Doe <i class="fa-solid fa-caret-down ms-1"></i></a>
-        </header>
+       <Header />
         <div id="user">
             <div class="create-news d-flex justify-content-between align-items-center p-5">
                 <h3>Welcome, John!</h3>
@@ -151,11 +143,13 @@
 </template>
 
 <script>
+    import Header from './partials/Header.vue';
     import CreateNews from './modals/CreateNews.vue';
     import EditNews from './modals/EditNews.vue';
 
     export default {
         components: {
+            Header,
             CreateNews,
             EditNews
         }, 
