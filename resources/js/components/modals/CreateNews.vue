@@ -36,23 +36,23 @@
     
     export default {
         data() {
-        return {
-            quill: null
-        }
+          return {
+              quill: null
+          }
         },
         mounted() {
-        const modal = document.getElementById('staticBackdrop');
-        modal.addEventListener('shown.bs.modal', () => {
-            if (!this.quill) {
-            nextTick(() => {
-                if (this.$refs.editorEl) {
-                this.quill = new Quill(this.$refs.editorEl, {
-                    theme: 'snow'
-                });
-                }
-            });
-            }
-        });
+          const modal = document.getElementById('staticBackdrop');
+          modal.addEventListener('shown.bs.modal', () => {
+              if (!this.quill) {
+              nextTick(() => {
+                  if (this.$refs.editorEl) {
+                    this.quill = new Quill(this.$refs.editorEl, {
+                        theme: 'snow'
+                    });
+                  }
+              });
+              }
+          });
         }
     }
   </script>

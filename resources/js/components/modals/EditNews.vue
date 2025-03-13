@@ -36,19 +36,19 @@
 
     export default {
         data() {
-        return {
-            quill: null
-        }
+            return {
+                quill: null
+            }
         },
         mounted() {
-        const modal = document.getElementById('editNews');
-        modal.addEventListener('shown.bs.modal', () => {
-            if (!this.quill) {
-            this.quill = new Quill(this.$refs.editorEl, {
-                theme: 'snow'
+            const modal = document.getElementById('editNews');
+            modal.addEventListener('shown.bs.modal', () => {
+                if (!this.quill) {
+                    this.quill = new Quill(this.$refs.editorEl, {
+                        theme: 'snow'
+                    });
+                }
             });
-            }
-        });
         }
     }
 </script>
