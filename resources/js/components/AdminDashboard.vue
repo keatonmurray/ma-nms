@@ -37,10 +37,7 @@
         </div>
         <Header />
         <div id="admin">
-            <div class="create-news d-flex justify-content-between align-items-center p-5">
-                <h3>Dashboard</h3>
-                <button class="btn btn-sm btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Create News</button>
-            </div>
+            <Subheader />
             <div class="row px-5">
                 <div class="col-12 col-md-3 mb-3">
                     <div class="card shadow-lg border-0">
@@ -182,6 +179,7 @@
     import CreateNews from './modals/CreateNews.vue';
     import EditNews from './modals/EditNews.vue';
     import ViewSubmission from './modals/ViewSubmission.vue';
+    import Subheader from './partials/Subheader.vue';
 
     Chart.register(
         LineController,
@@ -199,7 +197,8 @@
             Header,
             CreateNews,
             EditNews,
-            ViewSubmission
+            ViewSubmission,
+            Subheader
         }, 
         mounted() {
         const modal = document.getElementById('staticBackdrop');
@@ -260,23 +259,35 @@
         methods: {
             approveSubmission() {
                 Swal.fire({
-                    title: "Submission Approval",
-                    text: "Do you want to approve this submission?",
-                    icon: "question"
+                title: "Do you want to approve of this submission?",
+                    showCancelButton: true,
+                    confirmButtonText: "Yes",
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire("Submission Approved!", "", "success");
+                    } 
                 });
             },
             denySubmission() {
                 Swal.fire({
-                    title: "Submission Disapproval",
-                    text: "Do you want to deny this submission?",
-                    icon: "question"
+                title: "Do you want to deny this submission?",
+                    showCancelButton: true,
+                    confirmButtonText: "Yes",
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire("Submission Denied!", "", "success");
+                    } 
                 });
             },
             deleteSubmission() {
                 Swal.fire({
-                    title: "Submission Deletion",
-                    text: "Are you sure you want to delete this entry?",
-                    icon: "question"
+                title: "Do you want to delete this submission?",
+                    showCancelButton: true,
+                    confirmButtonText: "Yes",
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire("Submission Deleted!", "", "success");
+                    } 
                 });
             }
         }

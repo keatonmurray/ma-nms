@@ -10,8 +10,11 @@
     </header>
 </template>
 
-<style>
+<style scoped>
     header .fa-bars-progress {
         color: #fff;
+    }
+    figure {
+        margin: 0 !important;
     }
 </style>

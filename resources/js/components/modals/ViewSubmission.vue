@@ -1,6 +1,6 @@
 <template>
     <div class="modal fade" id="viewSubmissionModal" tabindex="-1" aria-labelledby="viewSubmissionModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                 <h5 class="modal-title" id="viewSubmissionModalLabel">Submission Content</h5>
@@ -11,10 +11,10 @@
                         <img :src="'assets/images/music-alley-cover-img.jpeg.webp'" alt="Cover Image" class="img-fluid w-100">
                     </div>
                     <div class="w-100 d-flex justify-content-center mb-4">
-                        <h2 class="text-center text-uppercase my-4 w-80 fw-bold">
+                        <h3 class="text-center text-uppercase my-4 w-80 fw-bold">
                             GATECREEPER announce headlining tour with UNDEATH
                             <span class="d-block subheading">Jarhead Fertilizer and Final Gasp also set to play in support</span>
-                        </h2>
+                        </h3>
                     </div>
                     <p class="paragraph">
                         Arizona death ‘n’ roll kingpins Gatecreeper have peeled back “the black curtain” again to announce a wave of headlining dates in support of their forthcoming Dark Superstition full-length.
@@ -41,8 +41,11 @@
                     </p>
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-dark">Download Attachments</button>
+                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-dark">
+                        <i class="fa-solid fa-download me-2"></i>
+                        Download Attachments
+                    </button>
                 </div>
             </div>
         </div>
@@ -52,13 +55,13 @@
 <style scoped>
     .subheading {
         font-weight: 500;
-        font-size: 20px;
+        font-size: 18px;
         text-transform: none !important;
         color: #1c1c1c;
         margin-top: 5px;
     }
     .paragraph {
-        font-size: 18px;
+        font-size: 16px;
     }
 </style>
   

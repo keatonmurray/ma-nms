@@ -37,11 +37,7 @@
         </div>
        <Header />
         <div id="user">
-            <div class="create-news d-flex justify-content-between align-items-center p-5">
-                <h3>Welcome, John!</h3>
-                <button class="btn btn-sm btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Create News</button>
-            </div>
-
+            <Subheader />
             <div class="row px-5">
                 <div class="col-12 col-md-3 mb-3">
                     <div class="card shadow-lg border-0">
@@ -101,7 +97,7 @@
                                 <td>2025-02-22</td>
                                 <td class="d-flex action-btn">
                                     <button class="btn btn-sm btn-dark me-1" data-bs-toggle="modal" data-bs-target="#editNews"><i class="fa-solid fa-pen-to-square"></i></button>
-                                    <button class="btn btn-sm btn-dark"><i class="fa-solid fa-trash"></i></button>
+                                    <button class="btn btn-sm btn-dark" @click="deleteSubmission()"><i class="fa-solid fa-trash"></i></button>
                                 </td>
                             </tr>
                             <tr>
@@ -114,7 +110,7 @@
                                 <td>2025-02-21</td>
                                 <td class="d-flex action-btn">
                                     <button class="btn btn-sm btn-dark me-1" data-bs-toggle="modal" data-bs-target="#editNews"><i class="fa-solid fa-pen-to-square"></i></button>
-                                    <button class="btn btn-sm btn-dark"><i class="fa-solid fa-trash"></i></button>
+                                    <button class="btn btn-sm btn-dark" @click="deleteSubmission()"><i class="fa-solid fa-trash"></i></button>
                                 </td>
                             </tr>
                             <tr>
@@ -127,7 +123,7 @@
                                 <td>2025-02-21</td>
                                 <td class="d-flex action-btn">
                                     <button class="btn btn-sm btn-dark me-1" data-bs-toggle="modal" data-bs-target="#editNews"><i class="fa-solid fa-pen-to-square"></i></button>
-                                    <button class="btn btn-sm btn-dark"><i class="fa-solid fa-trash"></i></button>
+                                    <button class="btn btn-sm btn-dark" @click="deleteSubmission()"><i class="fa-solid fa-trash"></i></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -143,16 +139,32 @@
 </template>
 
 <script>
+    import Swal from 'sweetalert2';
     import Header from './partials/Header.vue';
     import CreateNews from './modals/CreateNews.vue';
     import EditNews from './modals/EditNews.vue';
+    import Subheader from './partials/Subheader.vue';
 
     export default {
         components: {
             Header,
             CreateNews,
-            EditNews
+            EditNews,
+            Subheader
         }, 
+        methods: {
+            deleteSubmission() {
+                Swal.fire({
+                    title: "Do you want to delete this submission?",
+                    showCancelButton: true,
+                    confirmButtonText: "Yes",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire("Submission Deleted!", "", "success");
+                    }
+                });
+            }
+        }
     }
 </script>
 

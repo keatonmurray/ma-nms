@@ -12,7 +12,7 @@
                             <input type="text" class="form-control" placeholder="News Title">
                         </div>
                         <div class="input-group mb-3">
-                            <input type="file" class="form-control" placeholder="Upload Banner Image" style="font-size:26px;">
+                            <input type="file" class="form-control attachment-field" placeholder="Upload Banner Image">
                         </div>
                         <div class="mb-3">
                             <label for="editor" class="form-label">Content</label>
@@ -49,6 +49,12 @@
                     });
                 }
             });
-        }
+        },
     }
 </script>
+
+<style scoped>
+    .attachment-field {
+        line-height: 40px !important;
+    }
+</style>
