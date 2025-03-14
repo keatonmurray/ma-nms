@@ -11,7 +11,7 @@
                     <li>
                         <a href="#" class="text-white text-decoration-none d-block py-2">
                             <i class="fa-solid fa-newspaper me-2"></i>
-                            Active News
+                            All Submissions
                         </a>
                     </li>
                     <li>
@@ -53,7 +53,7 @@
                 <div class="col-12 col-md-3 mb-3">
                     <div class="card shadow-lg border-0">
                         <div class="card-body">
-                            <h5>Active News</h5>
+                            <h5>Submissions</h5>
                             <h2>40</h2>
                         </div>
                     </div>
@@ -94,7 +94,7 @@
             </div>
             <div class="mt-2 px-5">
                 <div id="news-table">
-                    <h4>Active News</h4>
+                    <h4>Submissions</h4>
                     <table class="table table-striped">
                         <thead class="table-dark">
                             <tr>
@@ -120,9 +120,9 @@
                                 <td>2025-02-22</td>
                                 <td class="d-flex action-btn">
                                     <button class="btn btn-sm btn-dark me-1" data-bs-toggle="modal" data-bs-target="#viewSubmissionModal"><i class="fa-solid fa-eye"></i></button>
-                                    <button class="btn btn-sm btn-dark me-1"><i class="fa-solid fa-check"></i></button>
-                                    <button class="btn btn-sm btn-dark me-1"><i class="fa-solid fa-xmark"></i></button>
-                                    <button class="btn btn-sm btn-dark"><i class="fa-solid fa-trash"></i></button>
+                                    <button class="btn btn-sm btn-dark me-1" @click="approveSubmission()"><i class="fa-solid fa-check"></i></button>
+                                    <button class="btn btn-sm btn-dark me-1" @click="denySubmission()"><i class="fa-solid fa-xmark"></i></button>
+                                    <button class="btn btn-sm btn-dark" @click="deleteSubmission()"><i class="fa-solid fa-trash"></i></button>
                                 </td>
                             </tr>
                             <tr>
@@ -138,9 +138,9 @@
                                 <td>2025-02-21</td>
                                 <td class="d-flex action-btn">
                                     <button class="btn btn-sm btn-dark me-1" data-bs-toggle="modal" data-bs-target="#viewSubmissionModal"><i class="fa-solid fa-eye"></i></button>
-                                    <button class="btn btn-sm btn-dark me-1"><i class="fa-solid fa-check"></i></button>
-                                    <button class="btn btn-sm btn-dark me-1"><i class="fa-solid fa-xmark"></i></button>
-                                    <button class="btn btn-sm btn-dark"><i class="fa-solid fa-trash"></i></button>
+                                    <button class="btn btn-sm btn-dark me-1" @click="approveSubmission()"><i class="fa-solid fa-check"></i></button>
+                                    <button class="btn btn-sm btn-dark me-1" @click="denySubmission()"><i class="fa-solid fa-xmark"></i></button>
+                                    <button class="btn btn-sm btn-dark" @click="deleteSubmission()"><i class="fa-solid fa-trash"></i></button>
                                 </td>
                             </tr>
                             <tr>
@@ -156,9 +156,9 @@
                                 <td>2025-02-21</td>
                                 <td class="d-flex action-btn">
                                     <button class="btn btn-sm btn-dark me-1" data-bs-toggle="modal" data-bs-target="#viewSubmissionModal"><i class="fa-solid fa-eye"></i></button>
-                                    <button class="btn btn-sm btn-dark me-1"><i class="fa-solid fa-check"></i></button>
-                                    <button class="btn btn-sm btn-dark me-1"><i class="fa-solid fa-xmark"></i></button>
-                                    <button class="btn btn-sm btn-dark"><i class="fa-solid fa-trash"></i></button>
+                                    <button class="btn btn-sm btn-dark me-1" @click="approveSubmission()"><i class="fa-solid fa-check"></i></button>
+                                    <button class="btn btn-sm btn-dark me-1" @click="denySubmission()"><i class="fa-solid fa-xmark"></i></button>
+                                    <button class="btn btn-sm btn-dark" @click="deleteSubmission()"><i class="fa-solid fa-trash"></i></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -176,6 +176,7 @@
 
 <script>
     import { Chart, LineController, LineElement, PointElement, LinearScale, CategoryScale, Title, Tooltip, Legend } from 'chart.js';
+    import Swal from 'sweetalert2';
     import { nextTick } from 'vue';
     import Header from './partials/Header.vue';
     import CreateNews from './modals/CreateNews.vue';
@@ -255,6 +256,29 @@
                     maintainAspectRatio: false
                 }
             });
+        },
+        methods: {
+            approveSubmission() {
+                Swal.fire({
+                    title: "Submission Approval",
+                    text: "Do you want to approve this submission?",
+                    icon: "question"
+                });
+            },
+            denySubmission() {
+                Swal.fire({
+                    title: "Submission Disapproval",
+                    text: "Do you want to deny this submission?",
+                    icon: "question"
+                });
+            },
+            deleteSubmission() {
+                Swal.fire({
+                    title: "Submission Deletion",
+                    text: "Are you sure you want to delete this entry?",
+                    icon: "question"
+                });
+            }
         }
     }
 </script>
