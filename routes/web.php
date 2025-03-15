@@ -1,19 +1,14 @@
 <?php
 
-use App\Http\Controllers\AdminDashboardController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserDashboardController;
-use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('LoginComponent');
-});
-
-Route::get('/register', function () {
-    return Inertia::render('RegisterComponent');
-});
-
-//Authentication
+//Authentication Handlers
+Route::get('/', [LoginController::class, 'index'])->name('auth.login');
+Route::get('/register', [RegisterController::class, 'index'])->name('auth.register');
 
 //User Dashboard
 Route::get('/user', [UserDashboardController::class, 'index'])->name('user.dashboard');
