@@ -10,6 +10,7 @@ use App\Http\Controllers\UserDashboardController;
 //Authentication Handlers
 Route::get('/', [LoginController::class, 'index'])->name('auth.login');
 Route::get('/register', [RegisterController::class, 'index'])->name('auth.register');
+Route::post('/register/store', [RegisterController::class, 'store'])->name('auth.store');
 
 //User Dashboard
 Route::get('/user', [UserDashboardController::class, 'index'])->name('user.dashboard');

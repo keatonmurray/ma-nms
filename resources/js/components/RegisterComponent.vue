@@ -9,7 +9,7 @@
             <div class="overlay"></div>
             <img id="registerBg" :src="'assets/images/music-alley-bg.jpg'" class="position-absolute top-0 start-0 w-100 h-100 object-fit-cover" alt="Login Background">
             <div id="registerForm" class="position-absolute top-50 start-50 translate-middle text-center p-3 rounded">
-                <form action="" class="p-3 bg-white shadow rounded">
+                <form @submit.prevent="registerAccount" class="p-3 bg-white shadow rounded">
                     <figure class="text-center mb-3">
                         <img :src="'assets/images/music-alley-logo.png'" alt="Logo" class="logo-img">
                     </figure>
@@ -18,24 +18,24 @@
                         <span class="input-group-text">
                             <i class="fas fa-user"></i> 
                         </span>
-                        <input type="text" class="form-control" placeholder="Full Name">
+                        <input v-model="form.name" name="name" type="text" class="form-control" placeholder="Full Name">
                     </div>
     
                     <div class="input-group mb-3">
                         <span class="input-group-text">
                             <i class="fas fa-envelope"></i> 
                         </span>
-                        <input type="email" class="form-control" placeholder="Email Address">
+                        <input v-model="form.email" name="email" type="email" class="form-control" placeholder="Email Address">
                     </div>
     
                     <div class="input-group mb-3">
                         <span class="input-group-text">
                             <i class="fas fa-lock"></i>
                         </span>
-                        <input type="password" class="form-control" placeholder="Password">
+                        <input v-model="form.password" name="password" type="password" class="form-control" placeholder="Password">
                     </div>
     
-                    <button type="submit" class="btn btn-dark w-100">
+                    <button @click="registerAccount" class="btn btn-dark w-100">
                         <i class="fa-solid fa-right-to-bracket me-1"></i>
                         Signup
                     </button>
@@ -52,11 +52,55 @@
 
 <script>
     import { InertiaLink } from '@inertiajs/inertia-vue3';
+    import { useForm } from '@inertiajs/inertia-vue3';
+    import { Inertia } from '@inertiajs/inertia';
+    import { ref } from 'vue';
+    import Swal from 'sweetalert2';
+
 
     export default {
+        setup() {
+            const isSubmitting = ref(false)
+            const form = useForm({
+                name: '',
+                email: '',
+                password: ''
+            })
+            const registerAccount = async () => {
+                event.preventDefault(); 
+                const formData = new FormData()
+                isSubmitting.value = true;
+                formData.append('name', form.name)
+                formData.append('email', form.email)
+                formData.append('password', form.password)
+                Inertia.post('register/store', formData, {
+                    onFinish: () => {
+                            Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: "Account created successfully!",
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(() => {
+                            form.reset();
+                            setTimeout(() => {
+                                Inertia.visit('/'); 
+                            }, 500);
+                        }).finally(() => {
+                            isSubmitting.value = false;
+                        })
+                    }
+                });
+            }
+            return {
+                form,
+                registerAccount,
+                isSubmitting
+            }
+        },
         components: {
-            InertiaLink
-        }
+            InertiaLink,
+        },
     };
 </script>
 

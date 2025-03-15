@@ -6,7 +6,15 @@
         <figure>
             <img :src="'assets/images/music-alley-logo-inverted.png'" alt="logo">
         </figure>    
-        <a href="" class="text-decoration-none fw-bold text-white">Keaton Murray <i class="fa-solid fa-caret-down ms-1"></i></a>
+        <div class="dropdown">
+            <a href="#" class="text-decoration-none fw-bold text-white dropdown-toggle" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                Keaton Murray 
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li><a class="dropdown-item" href="#">Profile Settings</a></li>
+                <li><a class="dropdown-item" href="#">Logout</a></li>
+            </ul>
+        </div>
     </header>
 </template>
 
@@ -16,5 +24,13 @@
     }
     figure {
         margin: 0 !important;
+    }
+    .dropdown-menu li:hover {
+        background-color: #000 !important;
+    }
+
+    .dropdown-menu .dropdown-item:hover {
+        color: #fff !important;
+        background-color: #000 !important;
     }
 </style>
