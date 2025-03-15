@@ -1,11 +1,11 @@
 <template>
-    <div class="container-fluid p-0 min-vh-100">
+    <div class="container-fluid p-0 vh-100">
         <header class="d-flex justify-content-center">
             <figure>
                 <img :src="'assets/images/music-alley-logo-inverted.png'" alt="logo">
             </figure>    
         </header>
-        <div class="hero w-100 h-auto d-flex justify-content-center align-items-center">
+        <div class="hero position-relative w-100 h-100">
             <div class="overlay"></div>
             <img id="registerBg" :src="'assets/images/music-alley-bg.jpg'" class="position-absolute top-0 start-0 w-100 h-100 object-fit-cover" alt="Login Background">
             <div id="registerForm" class="position-absolute top-50 start-50 translate-middle text-center p-3 rounded">
@@ -105,6 +105,9 @@
 </script>
 
 <style scoped>
+    .hero {
+        height: 100vh;
+    }
     #registerForm form {
         padding: 2px 33px !important;
     }
@@ -113,6 +116,6 @@
     }
     #registerForm {
         max-width: 563px;
-        width: 100%
+        width: 100%;
     }
 </style>
