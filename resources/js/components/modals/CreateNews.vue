@@ -17,7 +17,7 @@
             </div>
 
             <div class="input-group mb-3">
-              <input @change="handleFileUpload" type="file" class="form-control attachment-field">
+              <input @change="handleFileUpload" name="attachments" type="file" class="form-control attachment-field">
             </div>
 
             <div class="mb-3">
@@ -41,46 +41,76 @@ import { nextTick, ref } from 'vue'
 import { useForm } from '@inertiajs/vue3' 
 import Quill from 'quill'
 import Swal from 'sweetalert2'
+import { Inertia } from '@inertiajs/inertia'
 import 'quill/dist/quill.snow.css'
 
 export default {
   setup() {
     const editorEl = ref(null)  
     const quill = ref(null)   
+    const isSubmitting = ref(false)
 
-    //Inertia Object
     const form = useForm({
       title: '',        
       body: '',       
-      attachments: null 
+      attachments: null,
+      errors: {}
     })
 
     const handleFileUpload = (event) => {
       form.attachments = event.target.files[0]
     }
 
-    const submitEntry = () => {
+    const submitEntry = async () => {
       form.body = quill.value.root.innerHTML
 
-      Swal.fire({
+      const result = await Swal.fire({
         title: 'Submit entry?',
         showCancelButton: true,
         confirmButtonText: 'Yes',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          //Submit POST Data to Laravel Controller
-          form.post(route('news.store', { id: 1 }), {
-            onSuccess: () => {
-              Swal.fire('Success!', 'News has been submitted.', 'success')
-              form.reset() 
-              quill.value.setContents([]) 
+      })
+
+      if (result.isConfirmed) {
+        isSubmitting.value = true
+
+        try {
+          const formData = new FormData()
+          formData.append('title', form.title)
+          formData.append('body', form.body)
+          formData.append('attachments', form.attachments)
+
+          Inertia.post('/news/store/1', formData, {
+            onError: (error) => {
+              form.errors = error.response.data.errors || {}
             },
-            onError: () => {
-              Swal.fire('Oops!', 'There were some errors.', 'error')
+            onSuccess: () => {
+                Swal.fire({
+                title: 'Success!',
+                text: 'We\'ll be reviewing your submission.',
+                icon: 'success',
+                confirmButtonText: 'Okay', 
+                backdrop: false, 
+              }).then(() => {
+                const modalBackdrop = document.querySelector('.modal-backdrop');
+                const modalOpen = document.body;
+
+                if (modalBackdrop) {
+                  modalBackdrop.remove(); 
+                }
+
+                modalOpen.style.overflow = 'auto';
+                  Inertia.visit('/admin');
+              });
+              form.reset();
+              quill.value.setContents([]);
             }
           })
+        } catch (error) {
+          console.error('An error occurred:', error)
+        } finally {
+          isSubmitting.value = false
         }
-      })
+      }
     }
 
     nextTick(() => {
@@ -95,6 +125,7 @@ export default {
       editorEl,
       quill,
       form,
+      isSubmitting,
       handleFileUpload,
       submitEntry
     }

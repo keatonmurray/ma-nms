@@ -4,15 +4,24 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;    
+use App\Models\News;
 
-class AdminDashboardController extends Controller
+class NewsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Inertia::render('AdminDashboard');
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -20,7 +29,18 @@ class AdminDashboardController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $data = $request->validate([
+            'title' => 'required', 
+            'body' => 'required',
+            'attachments' => 'nullable|file|mimes:jpg,jpeg,png'
+        ]);
+
+        if ($request->hasFile('attachments')) {
+            $filePath = $request->file('attachments')->store('attachments', 'public'); 
+            $data['attachments'] = $filePath;
+        }
+
+        News::create($data);
     }
 
     /**
