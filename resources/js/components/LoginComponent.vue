@@ -31,13 +31,23 @@
                     </button>
                     <p class="text-small text-center mt-4">
                         Don't have an account yet?
-                        <router-link to="/register" class="text-dark fw-bold">Signup instead</router-link>
+                        <InertiaLink href="/register" class="text-dark fw-bold">Signup instead</InertiaLink>
                     </p>
                 </form>
             </div>
         </div>
     </div>
 </template>
+
+<script>
+    import { InertiaLink } from '@inertiajs/inertia-vue3';
+
+    export default {
+        components: {
+            InertiaLink
+        }
+    };
+</script>
 
 <style scoped>
     #loginForm form {
@@ -50,5 +60,4 @@
         max-width: 563px;
         width: 100%
     }
-
 </style>

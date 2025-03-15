@@ -42,13 +42,23 @@
     
                     <p class="text-small text-center mt-4">
                         Already have an account?
-                        <router-link to="/" class="text-dark fw-bold">Login instead</router-link>
+                        <InertiaLink href="/" class="text-dark fw-bold">Login instead</InertiaLink>
                     </p>
                 </form>
             </div>
         </div>
     </div>
 </template>
+
+<script>
+    import { InertiaLink } from '@inertiajs/inertia-vue3';
+
+    export default {
+        components: {
+            InertiaLink
+        }
+    };
+</script>
 
 <style scoped>
     #registerForm form {

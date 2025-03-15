@@ -1,28 +1,16 @@
 import './bootstrap';
 import '../css/app.css';
-import '../css/custom.css';
 
-import { createApp } from 'vue';
-import { createRouter, createWebHistory } from 'vue-router';
-import App from './components/App.vue';
+import { createApp, h } from 'vue';
+import { createInertiaApp } from '@inertiajs/inertia-vue3';
+import { ZiggyVue } from 'ziggy-js';
 
-import RegisterComponent from './components/RegisterComponent.vue'
-import LoginComponent from './components/LoginComponent.vue'
-import UserDashboard from './components/UserDashboard.vue'
-import AdminDashboard from './components/AdminDashboard.vue';
-
-const routes = [
-    { path: '/', component: LoginComponent },
-    { path: '/register', component:  RegisterComponent},
-    { path: '/user', component:  UserDashboard},
-    { path: '/admin', component:  AdminDashboard},
-];
-
-const router = createRouter({
-    history: createWebHistory(),
-    routes
+createInertiaApp({
+    resolve: name => import(`./components/${name}.vue`),
+    setup({ el, App, props, plugin }) {
+        createApp({ render: () => h(App, props) }) 
+        .use(plugin)      
+        .use(ZiggyVue)       
+        .mount(el);          
+    },
 });
-
-const app = createApp(App);
-app.use(router);
-app.mount('#app');
