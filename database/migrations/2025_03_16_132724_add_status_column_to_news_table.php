@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('news', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->json('attachments')->nullable();
-            $table->text('body')->nullable();
-            $table->timestamps();
+        Schema::table('news', function (Blueprint $table) {
+            $table->string('status')->default('Pending')->after('title');
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('news');
+        Schema::table('news', function (Blueprint $table) {
+            //
+        });
     }
 };

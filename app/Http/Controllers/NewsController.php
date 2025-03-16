@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\News;
 
@@ -39,6 +40,7 @@ class NewsController extends Controller
             $data['attachments'] = $filePath;
         }
 
+        $data['user_id'] = Auth::id();
         News::create($data);
     }
 

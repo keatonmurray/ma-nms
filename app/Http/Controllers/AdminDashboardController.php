@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;    
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AdminDashboardController extends Controller
 {
@@ -14,8 +15,14 @@ class AdminDashboardController extends Controller
     public function index()
     {
         $id = Auth::id(); 
+        $news = DB::table('news')
+            ->join('users', 'news.user_id', '=', 'users.id')
+            ->select('news.*', 'users.name as author_name')
+            ->get();
+
         return Inertia::render('AdminDashboard', [
-            'id' => $id
+            'id' => $id,
+            'news' => $news
         ]);
     }
     /**
