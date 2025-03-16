@@ -92,15 +92,11 @@
                                 <td>{{ item.title }}</td>
                                 <td>
                                     {{ item.status }}
-                                    <i class="fa-solid fa-circle-check ms-1"></i>
+                                    <i v-if="item.status == 'Pending'" class="fa-solid fa-clock"></i>
+                                    <i v-if="item.status == 'Approved'" class="fa-solid fa-circle-check"></i>
+                                    <i v-if="item.status == 'Drafts'" class="fa-solid fa-circle-question"></i>
                                 </td>
                                 <td>{{ formatDate(item.created_at) }}</td>
-                                <td class="d-flex action-btn">
-                                    <button class="btn btn-sm btn-dark me-1" data-bs-toggle="modal" data-bs-target="#editNews"><i class="fa-solid fa-pen-to-square"></i></button>
-                                    <button class="btn btn-sm btn-dark" @click="deleteSubmission()"><i class="fa-solid fa-trash"></i></button>
-                                </td>
-                            </tr>
-                           <tr>
                                 <td class="d-flex action-btn">
                                     <button class="btn btn-sm btn-dark me-1" data-bs-toggle="modal" data-bs-target="#editNews"><i class="fa-solid fa-pen-to-square"></i></button>
                                     <button class="btn btn-sm btn-dark" @click="deleteSubmission()"><i class="fa-solid fa-trash"></i></button>
@@ -161,17 +157,18 @@
 <style scoped>
     td .fa-clock {
         color:rgb(241, 241, 0); 
-        margin-left: 70px !important;
+        margin-left: 70px;
     }
     td .fa-bars-progress {
         color: #fff;
     }
     td .fa-circle-check {
         color: green; 
-        margin-left: 30px !important;
+        margin-left: 55px;
     }
     td .fa-circle-question {
         color: red;
+        margin-left: 90px;
     }
     header img {
         margin-top: 13px;
