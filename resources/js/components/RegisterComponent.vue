@@ -8,8 +8,8 @@
         <div class="hero position-relative w-100 h-100">
             <div class="overlay"></div>
             <img id="registerBg" :src="'assets/images/music-alley-bg.jpg'" class="position-absolute top-0 start-0 w-100 h-100 object-fit-cover" alt="Login Background">
-            <div id="registerForm" class="position-absolute top-50 start-50 translate-middle text-center p-3 rounded">
-                <form @submit.prevent="registerAccount" class="p-3 bg-white shadow rounded">
+            <div id="registerForm" class="position-absolute top-50 start-50 translate-middle text-center p-3">
+                <form @submit.prevent="registerAccount" class="p-3 bg-white shadow">
                     <figure class="text-center mb-3">
                         <img :src="'assets/images/music-alley-logo.png'" alt="Logo" class="logo-img">
                     </figure>

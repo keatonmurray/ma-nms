@@ -99,7 +99,7 @@ export default {
                 }
 
                 modalOpen.style.overflow = 'auto';
-                  Inertia.visit('/admin');
+                Inertia.visit('/admin');
               });
               form.reset();
               quill.value.setContents([]);
