@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid p-0 h-auto">
+    <div class="container-fluid pb-5 px-0 h-auto">
         <div class="offcanvas offcanvas-start text-white" id="sidebar">
             <div class="offcanvas-header">
                 <img :src="'assets/images/music-alley-logo-inverted.png'" alt="Logo">

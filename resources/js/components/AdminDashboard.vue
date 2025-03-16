@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid p-0 h-auto">
+    <div class="container-fluid pb-5 px-0 h-auto">
         <div class="offcanvas offcanvas-start text-white" id="sidebar">
             <div class="offcanvas-header">
                 <img :src="'/assets/images/music-alley-logo-inverted.png'" alt="Logo">
@@ -108,7 +108,12 @@
                                 <td>{{ index + 1 }}</td>
                                 <td>{{ item.title }}</td>
                                 <td>{{ item.author_name }}</td>
-                                <td>{{ item.status }}</td>
+                                <td>
+                                    {{ item.status }}
+                                    <i v-if="item.status == 'Pending'" class="fa-solid fa-clock"></i>
+                                    <i v-if="item.status == 'Approved'" class="fa-solid fa-circle-check"></i>
+                                    <i v-if="item.status == 'Drafts'" class="fa-solid fa-circle-question"></i>
+                                </td>
                                 <td>{{ formatDate(item.created_at) }}</td>
                                 <td class="d-flex action-btn">
                                     <button class="btn btn-sm btn-dark me-1" data-bs-toggle="modal" data-bs-target="#viewSubmissionModal"><i class="fa-solid fa-eye"></i></button>
@@ -263,17 +268,18 @@
 <style scoped>
     td .fa-clock {
         color:rgb(241, 241, 0); 
-        margin-left: 70px !important;
+        margin-left: 45px;
     }
     td .fa-bars-progress {
         color: #fff;
     }
     td .fa-circle-check {
         color: green; 
-        margin-left: 30px !important;
+        margin-left: 30px;
     }
     td .fa-circle-question {
         color: red;
+        margin-left: 65px;
     }
     header img {
         margin-top: 13px;
