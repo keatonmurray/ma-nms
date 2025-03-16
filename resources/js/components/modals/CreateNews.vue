@@ -86,7 +86,7 @@ export default {
             onSuccess: () => {
                 Swal.fire({
                 title: 'Success!',
-                text: 'We\'ll be reviewing your submission.',
+                text: 'We will be reviewing this shortly',
                 icon: 'success',
                 confirmButtonText: 'Okay', 
                 backdrop: false, 

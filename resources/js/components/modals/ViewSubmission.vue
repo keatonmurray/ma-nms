@@ -8,7 +8,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="w-100">
-                        <img :src="'assets/images/music-alley-cover-img.jpeg.webp'" alt="Cover Image" class="img-fluid w-100">
+                        <img :src="'/assets/images/music-alley-cover-img.jpeg.webp'" alt="Cover Image" class="img-fluid w-100">
                     </div>
                     <div class="w-100 d-flex justify-content-center mb-4">
                         <h3 class="text-center text-uppercase my-4 w-80 fw-bold">

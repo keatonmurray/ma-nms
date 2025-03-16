@@ -2,7 +2,7 @@
     <div class="container-fluid p-0 h-auto">
         <div class="offcanvas offcanvas-start text-white" id="sidebar">
             <div class="offcanvas-header">
-                <img :src="'assets/images/music-alley-logo-inverted.png'" alt="Logo">
+                <img :src="'/assets/images/music-alley-logo-inverted.png'" alt="Logo">
                 <h5 class="offcanvas-title">Music Alley</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
             </div>

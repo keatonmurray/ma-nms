@@ -57,7 +57,6 @@
     import { ref } from 'vue';
     import Swal from 'sweetalert2';
 
-
     export default {
         setup() {
             const isSubmitting = ref(false)

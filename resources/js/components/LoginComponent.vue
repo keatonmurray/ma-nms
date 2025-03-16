@@ -9,7 +9,7 @@
             <div class="overlay"></div>
             <img id="loginBg" :src="'assets/images/music-alley-bg.jpg'" class="position-absolute top-0 start-0 w-100 h-100 object-fit-fill" alt="Login Background">
             <div id="loginForm" class="position-absolute top-50 start-50 translate-middle text-center p-4 rounded">
-                <form action="" class="p-4 bg-white shadow rounded">
+                <form @submit.prevent="authenticateUser" class="p-4 bg-white shadow rounded">
                     <figure class="text-center mb-3">
                         <img :src="'assets/images/music-alley-logo.png'" alt="Logo" class="logo-img">
                     </figure>
@@ -17,15 +17,15 @@
                         <span class="input-group-text">
                             <i class="fas fa-envelope"></i> 
                         </span>
-                        <input type="email" class="form-control" placeholder="Email Address">
+                        <input v-model="form.email" name="email" type="email" class="form-control" placeholder="Email Address">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text">
                             <i class="fas fa-lock"></i>
                         </span>
-                        <input type="password" class="form-control" placeholder="Password">
+                        <input v-model="form.password" name="password" type="password" class="form-control" placeholder="Password">
                     </div>
-                    <button type="submit" class="btn btn-dark w-100">
+                    <button @click="authenticateUser" class="btn btn-dark w-100">
                         <i class="fa-solid fa-right-to-bracket me-1"></i>
                         Login
                     </button>
@@ -40,11 +40,44 @@
 </template>
 
 <script>
-    import { InertiaLink } from '@inertiajs/inertia-vue3';
+    import { InertiaLink, useForm } from '@inertiajs/inertia-vue3';
+    import { Inertia } from '@inertiajs/inertia';
+    import { ref } from 'vue';
+    import Swal from 'sweetalert2';
 
     export default {
         components: {
             InertiaLink
+        },
+        setup() {
+            const form = useForm({
+                email: '',
+                password: ''
+            })
+            const errors = ref({})
+            const authenticateUser = async () => {
+                event.preventDefault();
+                const formData = new FormData();
+                formData.append('email', form.email)
+                formData.append('password', form.password)
+
+                Inertia.post('/login/auth', formData, {
+                    onError: (errors) => {
+                        Swal.fire({
+                            position: "center",
+                            icon: "error",
+                            title: "Login failed!",
+                            text: errors.email || errors.password || 'Something went wrong',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    },
+                });
+            }
+            return {
+                form,
+                authenticateUser
+            }
         }
     };
 </script>

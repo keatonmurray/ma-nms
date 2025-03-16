@@ -11,12 +11,17 @@ use App\Http\Controllers\UserDashboardController;
 Route::get('/', [LoginController::class, 'index'])->name('auth.login');
 Route::get('/register', [RegisterController::class, 'index'])->name('auth.register');
 Route::post('/register/store', [RegisterController::class, 'store'])->name('auth.store');
+Route::post('/login/auth', [LoginController::class, 'authenticate'])->name('auth.login');
 
-//User Dashboard
-Route::get('/user', [UserDashboardController::class, 'index'])->name('user.dashboard');
+//Protected Admin Dashboard
+Route::middleware(['auth', 'is.admin'])->group(function () {
+    Route::get('/admin/{id}', [AdminDashboardController::class, 'index']);
+});
 
-//Admin Dashboard
-Route::get('/admin', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+//Protected User Dashboard
+Route::middleware(['auth', 'is.user'])->group(function () {
+    Route::get('/user/{id}', [UserDashboardController::class, 'index']);
+});
 
 //News Controller
 Route::post('/news/store/{id}', [NewsController::class, 'store'])->name('news.store');

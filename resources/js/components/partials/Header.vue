@@ -4,7 +4,7 @@
             <i class="fa-solid fa-bars-progress" data-bs-target="#sidebar" data-bs-toggle="offcanvas"></i>
         </div>
         <figure>
-            <img :src="'assets/images/music-alley-logo-inverted.png'" alt="logo">
+            <img :src="'/assets/images/music-alley-logo-inverted.png'" alt="logo">
         </figure>    
         <div class="dropdown">
             <a href="#" class="text-decoration-none fw-bold text-white dropdown-toggle" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
