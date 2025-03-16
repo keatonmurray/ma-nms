@@ -19,10 +19,10 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             if($user->role == 'user') {
-                return Inertia::location('/user/' . $user->id);
+                return Inertia::location('/user');
             } 
             if($user->role == 'admin') {
-                return Inertia::location('/admin/' . $user->id);
+                return Inertia::location('/admin');
             }
         }
         
@@ -33,4 +33,12 @@ class LoginController extends Controller
             ]
         ]);
     }   
+
+    public function logout() {
+        Auth::logout(); 
+        request()->session()->invalidate(); 
+        request()->session()->regenerateToken();
+
+        return Inertia::location('/');
+    }
 }

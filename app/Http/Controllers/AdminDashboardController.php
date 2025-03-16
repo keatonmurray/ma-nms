@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;    
+use Illuminate\Support\Facades\Auth;
 
 class AdminDashboardController extends Controller
 {
@@ -12,9 +13,11 @@ class AdminDashboardController extends Controller
      */
     public function index()
     {
-        return Inertia::render('AdminDashboard');
+        $id = Auth::id(); 
+        return Inertia::render('AdminDashboard', [
+            'id' => $id
+        ]);
     }
-
     /**
      * Store a newly created resource in storage.
      */

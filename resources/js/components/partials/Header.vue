@@ -12,11 +12,33 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <li><a class="dropdown-item" href="#">Profile Settings</a></li>
-                <li><a class="dropdown-item" href="#">Logout</a></li>
+                <form @submit.prevent="logout">
+                    <li>
+                        <a @click="logout"class="dropdown-item">Logout</a>
+                    </li>
+                </form>
             </ul>
         </div>
     </header>
 </template>
+
+<script>
+    import { Inertia } from '@inertiajs/inertia';
+    
+    export default {
+        components: {
+            Inertia
+        },
+        setup() {
+            const logout = () => {
+                Inertia.post('/logout');
+            }
+            return {
+                logout
+            }
+        }
+    }
+</script>
 
 <style scoped>
     header .fa-bars-progress {

@@ -12,15 +12,16 @@ Route::get('/', [LoginController::class, 'index'])->name('auth.login');
 Route::get('/register', [RegisterController::class, 'index'])->name('auth.register');
 Route::post('/register/store', [RegisterController::class, 'store'])->name('auth.store');
 Route::post('/login/auth', [LoginController::class, 'authenticate'])->name('auth.login');
+Route::post('/logout', [LoginController::class, 'logout'])->name('auth.logout');
 
-//Protected Admin Dashboard
+//Protected Routes (Admin)
 Route::middleware(['auth', 'is.admin'])->group(function () {
-    Route::get('/admin/{id}', [AdminDashboardController::class, 'index']);
+    Route::get('/admin', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 });
 
-//Protected User Dashboard
+//Protected Routes (User)
 Route::middleware(['auth', 'is.user'])->group(function () {
-    Route::get('/user/{id}', [UserDashboardController::class, 'index']);
+    Route::get('/user', [UserDashboardController::class, 'index'])->name('user.dashboard');
 });
 
 //News Controller

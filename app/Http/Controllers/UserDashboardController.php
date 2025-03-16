@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;    
+use Illuminate\Support\Facades\Auth;
 
 class UserDashboardController extends Controller
 {
@@ -12,7 +13,10 @@ class UserDashboardController extends Controller
      */
     public function index()
     {
-        return Inertia::render('UserDashboard');
+        $id = Auth::id(); 
+        return Inertia::render('UserDashboard', [
+            'id' => $id
+        ]);
     }
 
     /**
