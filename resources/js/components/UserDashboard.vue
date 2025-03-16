@@ -87,40 +87,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Breaking News</td>
+                            <tr v-for="(item, index) in news" :key="item.id">
+                                <td>{{ index + 1 }}</td>
+                                <td>{{ item.title }}</td>
                                 <td>
-                                    Approved 
+                                    {{ item.status }}
                                     <i class="fa-solid fa-circle-check ms-1"></i>
                                 </td>
-                                <td>2025-02-22</td>
+                                <td>{{ formatDate(item.created_at) }}</td>
                                 <td class="d-flex action-btn">
                                     <button class="btn btn-sm btn-dark me-1" data-bs-toggle="modal" data-bs-target="#editNews"><i class="fa-solid fa-pen-to-square"></i></button>
                                     <button class="btn btn-sm btn-dark" @click="deleteSubmission()"><i class="fa-solid fa-trash"></i></button>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Latest Update</td>
-                                <td>
-                                    Draft 
-                                    <i class="fa-solid fa-clock ms-1"></i>
-                                </td>
-                                <td>2025-02-21</td>
-                                <td class="d-flex action-btn">
-                                    <button class="btn btn-sm btn-dark me-1" data-bs-toggle="modal" data-bs-target="#editNews"><i class="fa-solid fa-pen-to-square"></i></button>
-                                    <button class="btn btn-sm btn-dark" @click="deleteSubmission()"><i class="fa-solid fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Some News</td>
-                                <td>
-                                    Under Review
-                                    <i class="fa-solid fa-circle-question ms-1"></i>
-                                </td>
-                                <td>2025-02-21</td>
+                           <tr>
                                 <td class="d-flex action-btn">
                                     <button class="btn btn-sm btn-dark me-1" data-bs-toggle="modal" data-bs-target="#editNews"><i class="fa-solid fa-pen-to-square"></i></button>
                                     <button class="btn btn-sm btn-dark" @click="deleteSubmission()"><i class="fa-solid fa-trash"></i></button>
@@ -152,6 +132,12 @@
             EditNews,
             Subheader
         }, 
+        props: {
+            news: Array
+        },
+        mounted() {
+            this.news
+        },
         methods: {
             deleteSubmission() {
                 Swal.fire({
@@ -163,6 +149,10 @@
                         Swal.fire("Submission Deleted!", "", "success");
                     }
                 });
+            },
+            formatDate(dateString) {
+                const options = { year: 'numeric', month: 'short', day: 'numeric' };
+                return new Date(dateString).toLocaleDateString('en-US', options);
             }
         }
     }

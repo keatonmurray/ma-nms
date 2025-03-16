@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;    
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UserDashboardController extends Controller
 {
@@ -14,8 +15,15 @@ class UserDashboardController extends Controller
     public function index()
     {
         $id = Auth::id(); 
+        $news = DB::table('news')
+            ->join('users', 'news.user_id', '=', 'users.id')
+            ->where('news.user_id', $id)
+            ->select('news.*', 'users.name as author_name')
+            ->get();
+
         return Inertia::render('UserDashboard', [
-            'id' => $id
+            'id' => $id,
+            'news' => $news
         ]);
     }
 

@@ -181,14 +181,14 @@
         new Chart(engagementCtx, {
             type: 'line',
             data: {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-                datasets: [{
-                label: "User Engagement",
-                data: [10, 25, 40, 30, 50, 70],
-                borderColor: "green",
-                backgroundColor: "rgba(0, 123, 255, 0.1)",
-                borderWidth: 2,
-                tension: 0.4
+                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+                    datasets: [{
+                    label: "User Engagement",
+                    data: [10, 25, 40, 30, 50, 70],
+                    borderColor: "green",
+                    backgroundColor: "rgba(0, 123, 255, 0.1)",
+                    borderWidth: 2,
+                    tension: 0.4
                 }]
         },
         options: {
