@@ -12,6 +12,7 @@ class News extends Model
         'title',
         'attachments',
         'body',
+        'status'
     ];
 
     protected $casts = [

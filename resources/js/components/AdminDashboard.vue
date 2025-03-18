@@ -113,13 +113,15 @@
                                     <i v-if="item.status == 'Pending'" class="fa-solid fa-clock"></i>
                                     <i v-if="item.status == 'Approved'" class="fa-solid fa-circle-check"></i>
                                     <i v-if="item.status == 'Drafts'" class="fa-solid fa-circle-question"></i>
+                                    <i v-if="item.status == 'Denied'" class="fa-solid fa-ban"></i>
                                 </td>
                                 <td>{{ formatDate(item.created_at) }}</td>
                                 <td class="d-flex action-btn">
                                     <button class="btn btn-sm btn-dark me-1" data-bs-toggle="modal" data-bs-target="#viewSubmissionModal"><i class="fa-solid fa-eye"></i></button>
-                                    <button class="btn btn-sm btn-dark me-1" @click="approveSubmission()"><i class="fa-solid fa-check"></i></button>
-                                    <button class="btn btn-sm btn-dark me-1" @click="denySubmission()"><i class="fa-solid fa-xmark"></i></button>
-                                    <button class="btn btn-sm btn-dark" @click="deleteSubmission()"><i class="fa-solid fa-trash"></i></button>
+                                    <button class="btn btn-sm btn-dark me-1" @click="approveSubmission(item)"><i class="fa-solid fa-check"></i></button>
+                                    <button class="btn btn-sm btn-dark me-1" @click="pendingSubmission(item)"><i class="fa-solid fa-hourglass-half"></i></button>
+                                    <button class="btn btn-sm btn-dark me-1" @click="denySubmission(item)"><i class="fa-solid fa-xmark"></i></button>
+                                    <button class="btn btn-sm btn-dark" @click="deleteSubmission(item)"><i class="fa-solid fa-trash"></i></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -137,8 +139,9 @@
 
 <script>
     import { Chart, LineController, LineElement, PointElement, LinearScale, CategoryScale, Title, Tooltip, Legend } from 'chart.js';
-    import Swal from 'sweetalert2';
+    import { Inertia } from '@inertiajs/inertia';
     import { nextTick } from 'vue';
+    import Swal from 'sweetalert2';
     import Header from './partials/Header.vue';
     import CreateNews from './modals/CreateNews.vue';
     import EditNews from './modals/EditNews.vue';
@@ -224,37 +227,81 @@
             });
         },
         methods: {
-            approveSubmission() {
+            approveSubmission(item) {
                 Swal.fire({
                 title: "Do you want to approve of this submission?",
                     showCancelButton: true,
                     confirmButtonText: "Yes",
                     }).then((result) => {
-                    if (result.isConfirmed) {
-                        Swal.fire("Submission Approved!", "", "success");
-                    } 
+                        if (result.isConfirmed) {
+                        item.status = 'Approved'
+                        Inertia.put(`/news/update/${item.id}`, {
+                            status: item.status 
+                        }, {
+                            preserveScroll: true,
+                            onSuccess: () => {
+                            Swal.fire("Submission Approved!", "", "success");
+                            }
+                        });
+                    }
                 });
             },
-            denySubmission() {
+            denySubmission(item) {
                 Swal.fire({
-                title: "Do you want to deny this submission?",
+                    title: "Do you want to deny this submission?",
                     showCancelButton: true,
                     confirmButtonText: "Yes",
-                    }).then((result) => {
+                }).then((result) => {
                     if (result.isConfirmed) {
-                        Swal.fire("Submission Denied!", "", "success");
-                    } 
+                        item.status = 'Denied';
+                        Inertia.put(`/news/update/${item.id}`, {
+                            status: item.status
+                        }, {
+                            preserveScroll: true,
+                            onSuccess: () => {
+                                Swal.fire("Submission Denied!", "", "success");
+                            }
+                        });
+                    }
                 });
             },
-            deleteSubmission() {
+
+            pendingSubmission(item) {
                 Swal.fire({
-                title: "Do you want to delete this submission?",
+                    title: "Do you want to leave this submission on pending?",
                     showCancelButton: true,
                     confirmButtonText: "Yes",
-                    }).then((result) => {
+                }).then((result) => {
                     if (result.isConfirmed) {
-                        Swal.fire("Submission Deleted!", "", "success");
-                    } 
+                        item.status = 'Pending';
+                        Inertia.put(`/news/update/${item.id}`, {
+                            status: item.status
+                        }, {
+                            preserveScroll: true,
+                            onSuccess: () => {
+                                Swal.fire("Submission Still Pending", "", "success");
+                            }
+                        });
+                    }
+                });
+            },
+            deleteSubmission(item) {
+                Swal.fire({
+                    title: "Do you want to delete this submission?",
+                    showCancelButton: true,
+                    confirmButtonText: "Yes",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Inertia.delete(`/news/delete/${item.id}`, {
+                            data: {
+                                id: item.id
+                            },
+                            preserveScroll: true,
+                            onSuccess: () => {
+                                Swal.fire("Submission Deleted!", "", "success");
+                            }
+                        });
+                    }
                 });
             },
             formatDate(dateString) {
@@ -280,6 +327,10 @@
     td .fa-circle-question {
         color: red;
         margin-left: 65px;
+    }
+    td .fa-ban {
+        color: red;
+        margin-left:55px;
     }
     header img {
         margin-top: 13px;

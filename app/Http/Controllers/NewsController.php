@@ -65,7 +65,13 @@ class NewsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data = $request->validate([
+            'status' => 'required'
+        ]);
+
+        $news = News::findOrFail($id);
+        $news->status = $request->input('status'); 
+        $news->save();
     }
 
     /**
@@ -73,6 +79,7 @@ class NewsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $news = News::findOrFail($id);
+        $news->delete();
     }
 }

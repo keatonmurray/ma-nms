@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;    
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\News;
 
 class AdminDashboardController extends Controller
 {
@@ -38,7 +39,6 @@ class AdminDashboardController extends Controller
      */
     public function show(string $id)
     {
-        //
     }
 
     /**
@@ -46,7 +46,7 @@ class AdminDashboardController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        
     }
 
     /**
@@ -54,7 +54,7 @@ class AdminDashboardController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+       dd('test');
     }
 
     /**

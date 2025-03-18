@@ -26,3 +26,5 @@ Route::middleware(['auth', 'is.user'])->group(function () {
 
 //News Controller
 Route::post('/news/store/{id}', [NewsController::class, 'store'])->name('news.store');
+Route::put('/news/update/{id}', [NewsController::class, 'update'])->name('news.update');
+Route::delete('/news/delete/{id}', [NewsController::class, 'destroy'])->name('news.delete');
