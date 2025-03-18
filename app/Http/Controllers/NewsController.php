@@ -42,6 +42,8 @@ class NewsController extends Controller
 
         $data['user_id'] = Auth::id();
         News::create($data);
+
+        return redirect(Auth::user()->role === 'admin' ? '/admin' : '/user');
     }
 
     /**

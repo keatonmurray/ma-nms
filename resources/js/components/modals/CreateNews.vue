@@ -92,14 +92,16 @@ export default {
                 backdrop: false, 
               }).then(() => {
                 const modalBackdrop = document.querySelector('.modal-backdrop');
+                const modalElement = document.getElementById('staticBackdrop');
+                const modalInstance = bootstrap.Modal.getInstance(modalElement);
                 const modalOpen = document.body;
 
-                if (modalBackdrop) {
-                  modalBackdrop.remove(); 
-                }
+                if (modalInstance) modalInstance.hide();
+                if (modalBackdrop) modalBackdrop.remove();
 
+                document.body.style.overflow = 'auto';
                 modalOpen.style.overflow = 'auto';
-                Inertia.visit('/admin');
+                
               });
               form.reset();
               quill.value.setContents([]);

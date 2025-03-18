@@ -95,6 +95,7 @@
                                     <i v-if="item.status == 'Pending'" class="fa-solid fa-clock"></i>
                                     <i v-if="item.status == 'Approved'" class="fa-solid fa-circle-check"></i>
                                     <i v-if="item.status == 'Drafts'" class="fa-solid fa-circle-question"></i>
+                                    <i v-if="item.status == 'Denied'" class="fa-solid fa-ban"></i>
                                 </td>
                                 <td>{{ formatDate(item.created_at) }}</td>
                                 <td class="d-flex action-btn">
@@ -165,6 +166,10 @@
     td .fa-circle-check {
         color: green; 
         margin-left: 55px;
+    }
+    td .fa-ban {
+        color: red;
+        margin-left: 80px;
     }
     td .fa-circle-question {
         color: red;
