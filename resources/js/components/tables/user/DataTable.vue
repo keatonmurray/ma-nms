@@ -25,8 +25,8 @@
                 <td>{{ formatDate(item.created_at) }}</td>
                 <td class="d-flex action-btn">
                     <button class="btn btn-sm btn-dark me-1" data-bs-toggle="modal" data-bs-target="#editNews"><i class="fa-solid fa-pen-to-square"></i></button>
-                    <button class="btn btn-sm btn-dark"@click="$emit('delete-news', item)"><i class="fa-solid fa-trash"></i></button>
-                    <button class="btn btn-sm btn-dark ms-1"@click="$emit('set-draft', item)"><i class="fa-solid fa-file-lines"></i></button>
+                    <button class="btn btn-sm btn-dark"@click="$emit('set-draft', item)"><i class="fa-solid fa-file-lines"></i></button>
+                    <button class="btn btn-sm btn-dark ms-1"@click="$emit('delete-news', item)"><i class="fa-solid fa-trash"></i></button>
                 </td>
             </tr>
         </tbody>

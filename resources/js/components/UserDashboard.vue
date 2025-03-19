@@ -90,7 +90,7 @@
             },
             updateSubmission(item) {
                 Swal.fire({
-                    title: "Do you want to delete this submission?",
+                    title: "Do you want to draft this submission?",
                     showCancelButton: true,
                     confirmButtonText: "Yes",
                 }).then((result) => {
