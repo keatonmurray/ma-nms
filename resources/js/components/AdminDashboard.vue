@@ -1,136 +1,26 @@
 <template>
     <div class="container-fluid pb-5 px-0 h-auto">
-        <div class="offcanvas offcanvas-start text-white" id="sidebar">
-            <div class="offcanvas-header">
-                <img :src="'/assets/images/music-alley-logo-inverted.png'" alt="Logo">
-                <h5 class="offcanvas-title">Music Alley</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
-            </div>
-            <div class="offcanvas-body">
-                <ul class="list-unstyled">
-                    <li>
-                        <a href="#" class="text-white text-decoration-none d-block py-2">
-                            <i class="fa-solid fa-newspaper me-2"></i>
-                            All Submissions
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="text-white text-decoration-none d-block py-2">
-                            <i class="fa-solid fa-person-circle-check me-2"></i>
-                            Approved
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="text-white text-decoration-none d-block py-2">
-                            <i class="fa-solid fa-chalkboard-user me-2"></i>
-                            Pending for Review
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="text-white text-decoration-none d-block py-2">
-                            <i class="fa-solid fa-dollar-sign me-2"></i>
-                            Expense Tracker
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        <Sidebar />
         <Header />
         <div id="admin">
             <Subheader />
-            <div class="row px-5">
-                <div class="col-12 col-md-3 mb-3">
-                    <div class="card shadow-lg border-0">
-                        <div class="card-body">
-                            <h5>Total Spent</h5>
-                            <h2>$1440</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-3 mb-3">
-                    <div class="card shadow-lg border-0">
-                        <div class="card-body">
-                            <h5>Submissions</h5>
-                            <h2>40</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-3 mb-3">
-                    <div class="card shadow-lg border-0">
-                        <div class="card-body">
-                            <h5>Approved</h5>
-                            <h2>40</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-3 mb-3">
-                    <div class="card shadow-lg border-0">
-                        <div class="card-body">
-                            <h5>Pending for Review</h5>
-                            <h2>40</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row py-5 px-5">
-                <h4>Statistics</h4>
-                <div class="col-12 col-md-6 mb-3">
-                    <div class="card shadow-lg border-0">
-                        <div class="card-body">
-                            <canvas id="userEngagement" width="400" height="280"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 mb-3">
-                    <div class="card shadow-lg border-0">
-                        <div class="card-body">
-                            <canvas id="monthlySales" width="400" height="280"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <Cards />
+            <Charts />
             <div class="mt-2 px-5">
                 <div id="news-table">
-                    <h4>Submissions</h4>
-                    <table class="table table-striped">
-                        <thead class="table-dark">
-                            <tr>
-                                <th>#</th>
-                                <th>Title</th>
-                                <th>Submitted By</th>
-                                <th>Status</th>
-                                <th>Date Added</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="(item, index) in news" :key="item.id">
-                                <td>{{ index + 1 }}</td>
-                                <td>{{ item.title }}</td>
-                                <td>{{ item.author_name }}</td>
-                                <td>
-                                    {{ item.status }}
-                                    <i v-if="item.status == 'Pending'" class="fa-solid fa-clock"></i>
-                                    <i v-if="item.status == 'Approved'" class="fa-solid fa-circle-check"></i>
-                                    <i v-if="item.status == 'Drafts'" class="fa-solid fa-circle-question"></i>
-                                    <i v-if="item.status == 'Denied'" class="fa-solid fa-ban"></i>
-                                </td>
-                                <td>{{ formatDate(item.created_at) }}</td>
-                                <td class="d-flex action-btn">
-                                    <button class="btn btn-sm btn-dark me-1" data-bs-toggle="modal" data-bs-target="#viewSubmissionModal"><i class="fa-solid fa-eye"></i></button>
-                                    <button class="btn btn-sm btn-dark me-1" @click="approveSubmission(item)"><i class="fa-solid fa-check"></i></button>
-                                    <button class="btn btn-sm btn-dark me-1" @click="pendingSubmission(item)"><i class="fa-solid fa-hourglass-half"></i></button>
-                                    <button class="btn btn-sm btn-dark me-1" @click="denySubmission(item)"><i class="fa-solid fa-xmark"></i></button>
-                                    <button class="btn btn-sm btn-dark" @click="deleteSubmission(item)"><i class="fa-solid fa-trash"></i></button>
-                                </td>
-                            </tr>
-                        </tbody>
-                         <!-- Modals -->
-                        <CreateNews />
-                        <EditNews />
-                        <ViewSubmission />
-                        <!-- End Modals -->
-                    </table>
+                    <DataTable
+                        :news="news"
+                        title="Submissions"
+                        @approve="approveSubmission"
+                        @deny="denySubmission"
+                        @pending="pendingSubmission"
+                        @delete="deleteSubmission"
+                    />
+                    <!-- Modals -->
+                    <CreateNews />
+                    <EditNews />
+                    <ViewSubmission />
+                    <!-- End Modals -->
                 </div>
             </div>
         </div>
@@ -138,7 +28,6 @@
 </template>
 
 <script>
-    import { Chart, LineController, LineElement, PointElement, LinearScale, CategoryScale, Title, Tooltip, Legend } from 'chart.js';
     import { Inertia } from '@inertiajs/inertia';
     import { nextTick } from 'vue';
     import Swal from 'sweetalert2';
@@ -147,17 +36,10 @@
     import EditNews from './modals/EditNews.vue';
     import ViewSubmission from './modals/ViewSubmission.vue';
     import Subheader from './partials/Subheader.vue';
-
-    Chart.register(
-        LineController,
-        LineElement,
-        PointElement,
-        LinearScale,
-        CategoryScale,
-        Title,
-        Tooltip,
-        Legend
-    );
+    import DataTable from './tables/admin/DataTable.vue';
+    import Cards from './tables/admin/Cards.vue';
+    import Charts from './tables/admin/Charts.vue';
+    import Sidebar from './tables/admin/Sidebar.vue';
 
     export default {
         components: {
@@ -165,7 +47,11 @@
             CreateNews,
             EditNews,
             ViewSubmission,
-            Subheader
+            Subheader,
+            DataTable,
+            Cards,
+            Charts,
+            Sidebar
         }, 
         props: {
             news: Array
@@ -183,48 +69,6 @@
                 });
             }
         });
-
-        // User Engagement Chart
-        const engagementCtx = document.getElementById('userEngagement').getContext('2d');
-        new Chart(engagementCtx, {
-            type: 'line',
-            data: {
-                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-                    datasets: [{
-                    label: "User Engagement",
-                    data: [10, 25, 40, 30, 50, 70],
-                    borderColor: "green",
-                    backgroundColor: "rgba(0, 123, 255, 0.1)",
-                    borderWidth: 2,
-                    tension: 0.4
-                }]
-        },
-        options: {
-                responsive: true,
-                maintainAspectRatio: false
-            }
-        });
-
-        // Monthly Sales Chart
-        const salesCtx = document.getElementById('monthlySales').getContext('2d');
-            new Chart(salesCtx, {
-                type: 'line',
-                data: {
-                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-                    datasets: [{
-                    label: "Monthly Sales",
-                    data: [10, 80, 40, 20, 50, 90],
-                    borderColor: "green",
-                    backgroundColor: "rgba(0, 123, 255, 0.1)",
-                    borderWidth: 2,
-                    tension: 0.4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false
-                }
-            });
         },
         methods: {
             approveSubmission(item) {
@@ -313,25 +157,6 @@
 </script>
 
 <style scoped>
-    td .fa-clock {
-        color:rgb(241, 241, 0); 
-        margin-left: 45px;
-    }
-    td .fa-bars-progress {
-        color: #fff;
-    }
-    td .fa-circle-check {
-        color: green; 
-        margin-left: 30px;
-    }
-    td .fa-circle-question {
-        color: red;
-        margin-left: 65px;
-    }
-    td .fa-ban {
-        color: red;
-        margin-left:55px;
-    }
     header img {
         margin-top: 13px;
     }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\News;
+use Inertia\Inertia;    
+use Illuminate\Support\Facades\DB;
 
 class NewsController extends Controller
 {
@@ -13,7 +15,7 @@ class NewsController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
