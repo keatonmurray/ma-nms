@@ -19,13 +19,14 @@
                     {{ item.status }}
                     <i v-if="item.status == 'Pending'" class="fa-solid fa-clock"></i>
                     <i v-if="item.status == 'Approved'" class="fa-solid fa-circle-check"></i>
-                    <i v-if="item.status == 'Drafts'" class="fa-solid fa-circle-question"></i>
+                    <i v-if="item.status == 'Draft'" class="fa-solid fa-circle-question"></i>
                     <i v-if="item.status == 'Denied'" class="fa-solid fa-ban"></i>
                 </td>
                 <td>{{ formatDate(item.created_at) }}</td>
                 <td class="d-flex action-btn">
                     <button class="btn btn-sm btn-dark me-1" data-bs-toggle="modal" data-bs-target="#editNews"><i class="fa-solid fa-pen-to-square"></i></button>
                     <button class="btn btn-sm btn-dark"@click="$emit('delete-news', item)"><i class="fa-solid fa-trash"></i></button>
+                    <button class="btn btn-sm btn-dark ms-1"@click="$emit('set-draft', item)"><i class="fa-solid fa-file-lines"></i></button>
                 </td>
             </tr>
         </tbody>
@@ -73,6 +74,6 @@ export default {
     }
     td .fa-circle-question {
         color: red;
-        margin-left: 90px;
+        margin-left: 97px;
     }
 </style>

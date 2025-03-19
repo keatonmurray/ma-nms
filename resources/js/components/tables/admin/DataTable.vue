@@ -21,7 +21,7 @@
               {{ item.status }}
               <i v-if="item.status === 'Pending'" class="fa-solid fa-clock"></i>
               <i v-else-if="item.status === 'Approved'" class="fa-solid fa-circle-check"></i>
-              <i v-else-if="item.status === 'Drafts'" class="fa-solid fa-circle-question"></i>
+              <i v-else-if="item.status === 'Draft'" class="fa-solid fa-circle-question"></i>
               <i v-else-if="item.status === 'Denied'" class="fa-solid fa-ban"></i>
             </td>
             <td>{{ formatDate(item.created_at) }}</td>

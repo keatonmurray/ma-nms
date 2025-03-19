@@ -4,13 +4,19 @@
         <Header />
         <div id="user">
             <Subheader />
-            <Cards />
+            <Cards 
+                :newsCount="newsCount"
+                :approvedNews="approvedNews"
+                :pendingNews="pendingNews"
+                :draftedNews="draftedNews"
+            />
             <br>
             <div class="mt-5 px-5">
                 <div id="news-table">
                     <DataTable 
                         :news="news" 
                         @delete-news="deleteSubmission"
+                        @set-draft="updateSubmission"
                     />
                      <!-- Modals -->
                     <CreateNews />
@@ -35,19 +41,32 @@
 
     export default {
         components: {
-            Header,
-            CreateNews,
-            EditNews,
-            Subheader,
-            DataTable,
-            Sidebar,
-            Cards   
-        }, 
+                Header,
+                CreateNews,
+                EditNews,
+                Subheader,
+                DataTable,
+                Sidebar,
+                Cards   
+            }, 
+            computed: {
+                countAll() {
+                    return this.news.length;
+                }
+            },
         props: {
-            news: Array
+            news: Array,
+            newsCount: Number,
+            approvedNews: Number,
+            pendingNews: Number,
+            draftedNews: Number
         },
         mounted() {
             this.news
+            this.newsCount
+            this.approvedNews
+            this.pendingNews
+            this.draftedNews
         },
         methods: {
             deleteSubmission(item) {
@@ -69,6 +88,25 @@
                     }
                 });
             },
+            updateSubmission(item) {
+                Swal.fire({
+                    title: "Do you want to delete this submission?",
+                    showCancelButton: true,
+                    confirmButtonText: "Yes",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        item.status = 'Draft'
+                        Inertia.put(`/news/update/${item.id}`, {
+                            status: item.status 
+                        }, {
+                            preserveScroll: true,
+                            onSuccess: () => {
+                            Swal.fire("Submission Drafted!", "", "success");
+                            }
+                        });
+                    }
+                });
+            }
         }
     }
 </script>
