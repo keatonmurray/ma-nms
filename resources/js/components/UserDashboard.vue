@@ -23,6 +23,7 @@
 </template>
 
 <script>
+    import { Inertia } from '@inertiajs/inertia';
     import Swal from 'sweetalert2';
     import Header from './partials/Header.vue';
     import CreateNews from './modals/CreateNews.vue';
@@ -49,14 +50,22 @@
             this.news
         },
         methods: {
-            deleteSubmission() {
+            deleteSubmission(item) {
                 Swal.fire({
                     title: "Do you want to delete this submission?",
                     showCancelButton: true,
                     confirmButtonText: "Yes",
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        Swal.fire("Submission Deleted!", "", "success");
+                        Inertia.delete(`/news/delete/${item.id}`, {
+                            data: {
+                                id: item.id
+                            },
+                            preserveScroll: true,
+                            onSuccess: () => {
+                                Swal.fire("Submission Deleted!", "", "success");
+                            }
+                        });
                     }
                 });
             },
