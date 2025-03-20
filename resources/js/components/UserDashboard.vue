@@ -6,7 +6,7 @@
             <Subheader />
             <Cards 
                 :newsCount="newsCount"
-                :approvedNews="approvedNews"
+                :approvedCount="approvedCount"
                 :pendingNews="pendingNews"
                 :draftedNews="draftedNews"
             />
@@ -57,7 +57,7 @@
             props: {
                 news: Array,
                 newsCount: Number,
-                approvedNews: Number,
+                approvedCount: Number,
                 pendingNews: Number,
                 draftedNews: Number
                 
@@ -65,7 +65,7 @@
             mounted() {
                 this.news
                 this.newsCount
-                this.approvedNews
+                this.approvedCount
                 this.pendingNews
                 this.draftedNews
             },

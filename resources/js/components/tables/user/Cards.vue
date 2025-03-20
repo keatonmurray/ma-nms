@@ -12,7 +12,7 @@
             <div class="card shadow-lg border-0">
                 <div class="card-body">
                     <h5>Approved</h5>
-                    <h2>{{ approvedNews ?? 0 }}</h2>
+                    <h2>{{ approvedCount ?? 0 }}</h2>
                 </div>
             </div>
         </div>
@@ -39,7 +39,7 @@
     export default {
         props: {
             newsCount: Number,
-            approvedNews: Number,
+            approvedCount: Number,
             pendingNews: Number,
             draftedNews: Number
         }

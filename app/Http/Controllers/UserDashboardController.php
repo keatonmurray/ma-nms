@@ -18,7 +18,7 @@ class UserDashboardController extends NewsController
 
         $news = $this->getNews();
         $newsCount =  $this->submissionCount();
-        $approvedNews = $this->approvedCount();
+        $approvedCount = $this->approvedCount();
         $pendingNews = $this->pendingCount();
         $draftedNews = $this->draftCount();
 
@@ -26,7 +26,7 @@ class UserDashboardController extends NewsController
             'id' => $id,
             'news' => $news,
             'newsCount' => $newsCount,
-            'approvedNews' => $approvedNews,
+            'approvedCount' => $approvedCount,
             'pendingNews' => $pendingNews,
             'draftedNews' => $draftedNews
         ]);

@@ -13,12 +13,17 @@ class NewsController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    private function isAdmin() 
+    {
+        return Auth::user()->role == 'admin';
+    }
+
     protected function getNews()
     {
         $id = Auth::id(); 
-        $role = Auth::user()->role;
 
-        if($role == 'admin') 
+        if($this->isAdmin()) 
         {
             return DB::table('news')
                 ->join('users', 'news.user_id', '=', 'users.id')
@@ -45,9 +50,8 @@ class NewsController extends Controller
     protected function submissionCount() 
     {
         $id = Auth::id();
-        $role = Auth::user()->role;
 
-        if($role == 'admin')
+        if($this->isAdmin())
         {
             return DB::table('news')
                 ->where('news.status', '!=', 'Draft ') 
@@ -62,15 +66,15 @@ class NewsController extends Controller
     protected function approvedCount()
     {
         $id = Auth::id();
-        $role = $role = Auth::user()->role;
 
-        if($role == 'admin') {
+        if($this->isAdmin()) {
             return DB::table('news')
                 ->where('news.status', '=', 'Approved') 
                 ->count();
         } else {
             return DB::table('news')
                 ->where('user_id', $id)
+                ->where('news.status', '=', 'Approved') 
                 ->count();
         }
     }
@@ -78,9 +82,8 @@ class NewsController extends Controller
     protected function pendingCount()
     {
         $id = Auth::id();   
-        $role = Auth::user()->role;
 
-        if($role == 'admin')
+        if($this->isAdmin())
         {
             return DB::table('news')
                 ->where('news.status', '=', 'Pending')
