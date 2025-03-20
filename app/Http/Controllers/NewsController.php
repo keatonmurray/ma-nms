@@ -13,12 +13,13 @@ class NewsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function getNews()
+    protected function getNews()
     {
         $id = Auth::id(); 
         $role = Auth::user()->role;
 
-        if($role == 'admin') {
+        if($role == 'admin') 
+        {
             return DB::table('news')
                 ->join('users', 'news.user_id', '=', 'users.id')
                 ->where('news.status', '!=', 'Draft') 
