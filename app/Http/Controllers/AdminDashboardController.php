@@ -6,9 +6,8 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;    
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use App\Models\News;
 
-class AdminDashboardController extends Controller
+class AdminDashboardController extends NewsController
 {
     /**
      * Display a listing of the resource.
@@ -16,16 +15,21 @@ class AdminDashboardController extends Controller
     public function index()
     {
         $id = Auth::id(); 
-        $news = DB::table('news')
-            ->join('users', 'news.user_id', '=', 'users.id')
-            ->select('news.*', 'users.name as author_name')
-            ->get();
+
+        $news = $this->getNews();
+        $submissionCount = $this->submissionCount();
+        $approvedCount = $this->approvedCount();
+        $pendingCount = $this->pendingCount();
 
         return Inertia::render('AdminDashboard', [
             'id' => $id,
-            'news' => $news
+            'news' => $news,
+            'submissionCount' => $submissionCount,
+            'approvedCount' => $approvedCount,
+            'pendingCount' => $pendingCount
         ]);
     }
+
     /**
      * Store a newly created resource in storage.
      */

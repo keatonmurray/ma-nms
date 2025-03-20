@@ -13,9 +13,24 @@ class NewsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function getNews()
     {
-        
+        $id = Auth::id(); 
+        $role = Auth::user()->role;
+
+        if($role == 'admin') {
+            return DB::table('news')
+                ->join('users', 'news.user_id', '=', 'users.id')
+                ->where('news.status', '!=', 'Draft') 
+                ->select('news.*', 'users.name as author_name')
+                ->get();
+        } else {
+            return DB::table('news')
+                ->join('users', 'news.user_id', '=', 'users.id')
+                ->where('news.user_id', $id)
+                ->select('news.*', 'users.name as author_name')
+                ->get();
+        }
     }
 
     /**
@@ -24,6 +39,65 @@ class NewsController extends Controller
     public function create()
     {
         //
+    }
+
+    protected function submissionCount() 
+    {
+        $id = Auth::id();
+        $role = Auth::user()->role;
+
+        if($role == 'admin')
+        {
+            return DB::table('news')
+                ->where('news.status', '!=', 'Draft ') 
+                ->count();
+        } else {
+            return DB::table('news')
+                ->where('user_id', $id)
+                ->count();
+        }
+    }
+
+    protected function approvedCount()
+    {
+        $id = Auth::id();
+        $role = $role = Auth::user()->role;
+
+        if($role == 'admin') {
+            return DB::table('news')
+                ->where('news.status', '=', 'Approved') 
+                ->count();
+        } else {
+            return DB::table('news')
+                ->where('user_id', $id)
+                ->count();
+        }
+    }
+
+    protected function pendingCount()
+    {
+        $id = Auth::id();   
+        $role = Auth::user()->role;
+
+        if($role == 'admin')
+        {
+            return DB::table('news')
+                ->where('news.status', '=', 'Pending')
+                ->count();
+        } else {
+            return DB::table('news')
+                ->where('status', 'Pending')
+                ->where('user_id', $id)
+                ->count();
+        }
+    }
+    protected function draftCount()
+    {   
+        $id = Auth::id();
+        return DB::table('news')
+            ->where('status', 'Draft')
+            ->where('user_id', $id)
+            ->count();
     }
 
     /**

@@ -4,7 +4,12 @@
         <Header />
         <div id="admin">
             <Subheader />
-            <Cards />
+            <Cards 
+                :totalSpent="totalSpent" 
+                :submissionCount="submissionCount"
+                :approvedCount="approvedCount"
+                :pendingCount="pendingCount"
+            />
             <Charts />
             <div class="mt-2 px-5">
                 <div id="news-table">
@@ -53,22 +58,37 @@
             Charts,
             Sidebar
         }, 
+        computed: {
+        countAll() {
+                return this.news.length;
+            }
+        },
         props: {
-            news: Array
+            news: Array,
+            totalSpent: Number,
+            submissionCount: Number,
+            approvedCount: Number,
+            pendingCount: Number
         },
         mounted() {
             const modal = document.getElementById('staticBackdrop');
-            modal.addEventListener('shown.bs.modal', () => {
-                if (!this.quill) {
-                nextTick(() => {
-                    if (this.$refs.editorEl) {
-                    this.quill = new Quill(this.$refs.editorEl, {
-                        theme: 'snow'
+                modal.addEventListener('shown.bs.modal', () => {
+                    if (!this.quill) {
+                    nextTick(() => {
+                        if (this.$refs.editorEl) {
+                        this.quill = new Quill(this.$refs.editorEl, {
+                            theme: 'snow'
+                        });
+                        }
                     });
-                    }
-                });
-            }
-        });
+                }
+            })
+          
+            this.news,
+            this.totalSpent,
+            this.submissionCount,
+            this.approvedCount,
+            this.pendingCount
         },
         methods: {
             approveSubmission(item) {

@@ -54,59 +54,60 @@
                     return this.news.length;
                 }
             },
-        props: {
-            news: Array,
-            newsCount: Number,
-            approvedNews: Number,
-            pendingNews: Number,
-            draftedNews: Number
-        },
-        mounted() {
-            this.news
-            this.newsCount
-            this.approvedNews
-            this.pendingNews
-            this.draftedNews
-        },
-        methods: {
-            deleteSubmission(item) {
-                Swal.fire({
-                    title: "Do you want to delete this submission?",
-                    showCancelButton: true,
-                    confirmButtonText: "Yes",
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        Inertia.delete(`/news/delete/${item.id}`, {
-                            data: {
-                                id: item.id
-                            },
-                            preserveScroll: true,
-                            onSuccess: () => {
-                                Swal.fire("Submission Deleted!", "", "success");
-                            }
-                        });
-                    }
-                });
+            props: {
+                news: Array,
+                newsCount: Number,
+                approvedNews: Number,
+                pendingNews: Number,
+                draftedNews: Number
+                
             },
-            updateSubmission(item) {
-                Swal.fire({
-                    title: "Do you want to draft this submission?",
-                    showCancelButton: true,
-                    confirmButtonText: "Yes",
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        item.status = 'Draft'
-                        Inertia.put(`/news/update/${item.id}`, {
-                            status: item.status 
-                        }, {
-                            preserveScroll: true,
-                            onSuccess: () => {
-                            Swal.fire("Submission Drafted!", "", "success");
-                            }
-                        });
-                    }
-                });
-            }
+            mounted() {
+                this.news
+                this.newsCount
+                this.approvedNews
+                this.pendingNews
+                this.draftedNews
+            },
+            methods: {
+                deleteSubmission(item) {
+                    Swal.fire({
+                        title: "Do you want to delete this submission?",
+                        showCancelButton: true,
+                        confirmButtonText: "Yes",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Inertia.delete(`/news/delete/${item.id}`, {
+                                data: {
+                                    id: item.id
+                                },
+                                preserveScroll: true,
+                                onSuccess: () => {
+                                    Swal.fire("Submission Deleted!", "", "success");
+                                }
+                            });
+                        }
+                    });
+                },
+                updateSubmission(item) {
+                    Swal.fire({
+                        title: "Do you want to draft this submission?",
+                        showCancelButton: true,
+                        confirmButtonText: "Yes",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            item.status = 'Draft'
+                            Inertia.put(`/news/update/${item.id}`, {
+                                status: item.status 
+                            }, {
+                                preserveScroll: true,
+                                onSuccess: () => {
+                                Swal.fire("Submission Drafted!", "", "success");
+                                }
+                            });
+                        }
+                    });
+                }
         }
     }
 </script>

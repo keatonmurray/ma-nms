@@ -7,7 +7,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class UserDashboardController extends Controller
+class UserDashboardController extends NewsController
 {
     /**
      * Display a listing of the resource.
@@ -16,27 +16,11 @@ class UserDashboardController extends Controller
     {
         $id = Auth::id(); 
 
-        $news = DB::table('news')
-            ->join('users', 'news.user_id', '=', 'users.id')
-            ->where('news.user_id', $id)
-            ->select('news.*', 'users.name as author_name')
-            ->get();
-
-        $newsCount = DB::table('news')
-            ->where('user_id', $id)
-            ->count();
-
-        $approvedNews = DB::table('news')
-            ->where('status', 'Approved')
-            ->count();
-        
-        $pendingNews = DB::table('news')
-            ->where('status', 'Pending')
-            ->count();
-
-        $draftedNews = DB::table('news')
-            ->where('status', 'Draft')
-            ->count();
+        $news = $this->getNews();
+        $newsCount =  $this->submissionCount();
+        $approvedNews = $this->approvedCount();
+        $pendingNews = $this->pendingCount();
+        $draftedNews = $this->draftCount();
 
         return Inertia::render('UserDashboard', [
             'id' => $id,
