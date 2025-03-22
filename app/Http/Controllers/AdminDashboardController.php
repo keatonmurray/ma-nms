@@ -22,6 +22,7 @@ class AdminDashboardController extends NewsController
         $pendingCount = $this->pendingCount();
 
         return Inertia::render('AdminDashboard', [
+            'user' => Auth::user(),
             'id' => $id,
             'news' => $news,
             'submissionCount' => $submissionCount,

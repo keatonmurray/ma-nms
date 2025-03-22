@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid pb-5 px-0 h-auto">
         <Sidebar />
-        <Header />
+        <Header :user="user" />
         <div id="user">
             <Subheader />
             <Cards 
@@ -59,8 +59,8 @@
                 newsCount: Number,
                 approvedCount: Number,
                 pendingNews: Number,
-                draftedNews: Number
-                
+                draftedNews: Number,
+                user: Object
             },
             mounted() {
                 this.news
@@ -68,6 +68,7 @@
                 this.approvedCount
                 this.pendingNews
                 this.draftedNews
+                this.user
             },
             methods: {
                 deleteSubmission(item) {

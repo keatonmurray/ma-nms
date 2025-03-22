@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid pb-5 px-0 h-auto">
         <Sidebar />
-        <Header />
+        <Header :user="user"/>
         <div id="admin">
             <Subheader />
             <Cards 
@@ -59,16 +59,17 @@
             Sidebar
         }, 
         computed: {
-        countAll() {
-                return this.news.length;
-            }
+            countAll() {
+                    return this.news.length;
+                }
         },
         props: {
             news: Array,
             totalSpent: Number,
             submissionCount: Number,
             approvedCount: Number,
-            pendingCount: Number
+            pendingCount: Number,
+            user: Object
         },
         mounted() {
             const modal = document.getElementById('staticBackdrop');
@@ -88,7 +89,8 @@
             this.totalSpent,
             this.submissionCount,
             this.approvedCount,
-            this.pendingCount
+            this.pendingCount,
+            this.user
         },
         methods: {
             approveSubmission(item) {

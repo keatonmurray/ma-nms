@@ -28,7 +28,8 @@ class UserDashboardController extends NewsController
             'newsCount' => $newsCount,
             'approvedCount' => $approvedCount,
             'pendingNews' => $pendingNews,
-            'draftedNews' => $draftedNews
+            'draftedNews' => $draftedNews,
+            'user' => Auth::user()
         ]);
     }
 

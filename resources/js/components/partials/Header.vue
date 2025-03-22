@@ -8,7 +8,7 @@
         </figure>    
         <div class="dropdown">
             <a href="#" class="text-decoration-none fw-bold text-white dropdown-toggle" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                Keaton Murray 
+                {{ user.name }}
             </a>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <li><a class="dropdown-item" href="#">Profile Settings</a></li>
@@ -29,6 +29,9 @@
         components: {
             Inertia
         },
+        props: {
+            user: String
+        },
         setup() {
             const logout = () => {
                 Inertia.post('/logout');
@@ -41,6 +44,9 @@
 </script>
 
 <style scoped>
+    a {
+        cursor: pointer;
+    }
     header .fa-bars-progress {
         color: #fff;
     }
