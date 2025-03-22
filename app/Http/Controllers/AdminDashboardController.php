@@ -44,6 +44,10 @@ class AdminDashboardController extends NewsController
      */
     public function show(string $id)
     {
+        $entry = $this->showEntry($id);
+        return Inertia::render('AdminDashboard', [
+            'entry' => $entry
+        ]);
     }
 
     /**

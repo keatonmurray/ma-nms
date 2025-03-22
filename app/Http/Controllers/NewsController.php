@@ -129,9 +129,9 @@ class NewsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    protected function showEntry(string $id)
     {
-        //
+        return News::find($id);
     }
 
     /**

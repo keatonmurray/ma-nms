@@ -28,3 +28,4 @@ Route::middleware(['auth', 'is.user'])->group(function () {
 Route::post('/news/store/{id}', [NewsController::class, 'store'])->name('news.store');
 Route::put('/news/update/{id}', [NewsController::class, 'update'])->name('news.update');
 Route::delete('/news/delete/{id}', [NewsController::class, 'destroy'])->name('news.delete');
+// Route::get('/news/show/{id}', [NewsController::class, 'show'])->name('news.show');

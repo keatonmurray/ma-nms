@@ -16,6 +16,7 @@
                     <DataTable
                         :news="news"
                         title="Submissions"
+                        @show="displayEntry"
                         @approve="approveSubmission"
                         @deny="denySubmission"
                         @pending="pendingSubmission"
@@ -24,7 +25,7 @@
                     <!-- Modals -->
                     <CreateNews />
                     <EditNews />
-                    <ViewSubmission />
+                    <ViewSubmission :entry="selectedEntry" />
                     <!-- End Modals -->
                 </div>
             </div>
@@ -63,13 +64,19 @@
                     return this.news.length;
                 }
         },
+        data() {
+            return {
+                selectedEntry: null
+            }
+        },
         props: {
             news: Array,
             totalSpent: Number,
             submissionCount: Number,
             approvedCount: Number,
             pendingCount: Number,
-            user: Object
+            user: Object,
+            entry: Object
         },
         mounted() {
             const modal = document.getElementById('staticBackdrop');
@@ -91,6 +98,7 @@
             this.approvedCount,
             this.pendingCount,
             this.user
+            this.entry
         },
         methods: {
             approveSubmission(item) {
@@ -169,6 +177,9 @@
                         });
                     }
                 });
+            },
+            displayEntry(item) {
+                this.selectedEntry = item
             },
             formatDate(dateString) {
                 const options = { year: 'numeric', month: 'short', day: 'numeric' };

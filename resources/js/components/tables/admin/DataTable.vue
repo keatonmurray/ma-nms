@@ -26,7 +26,7 @@
             </td>
             <td>{{ formatDate(item.created_at) }}</td>
             <td class="d-flex action-btn">
-              <button class="btn btn-sm btn-dark me-1" data-bs-toggle="modal" data-bs-target="#viewSubmissionModal">
+              <button class="btn btn-sm btn-dark me-1" data-bs-toggle="modal" data-bs-target="#viewSubmissionModal" @click="$emit('show', item)">
                 <i class="fa-solid fa-eye"></i>
               </button>
               <button class="btn btn-sm btn-dark me-1" @click="$emit('approve', item)">
@@ -55,7 +55,8 @@
         type: String,
         default: "Submissions"
       },
-      news: Array
+      news: Array,
+      
     },
     methods: {
       formatDate(dateStr) {

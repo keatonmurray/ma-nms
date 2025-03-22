@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;    
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use App\Models\News;
 
 class UserDashboardController extends NewsController
 {
@@ -54,7 +54,11 @@ class UserDashboardController extends NewsController
      */
     public function show(string $id)
     {
-        //
+        $entry = $this->showEntry($id);
+        
+        return Inertia::render('UserDashboard', [
+            'entry' => $entry
+        ]);
     }
 
     /**

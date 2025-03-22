@@ -37,103 +37,100 @@
 </template>
 
 <script>
-import { nextTick, ref } from 'vue'
-import { useForm } from '@inertiajs/vue3' 
 import Quill from 'quill'
 import Swal from 'sweetalert2'
+import { useForm } from '@inertiajs/vue3'
 import { Inertia } from '@inertiajs/inertia'
 import 'quill/dist/quill.snow.css'
 
 export default {
-  setup() {
-    const editorEl = ref(null)  
-    const quill = ref(null)   
-    const isSubmitting = ref(false)
+  props: {
+    postUrl: {
+      type: String,
+      required: true
+    },
+  },
 
-    const form = useForm({
-      title: '',        
-      body: '',       
-      attachments: null,
-      errors: {}
-    })
-
-    const handleFileUpload = (event) => {
-      form.attachments = event.target.files[0]
+  data() {
+    return {
+      editorEl: null,
+      quill: null,
+      isSubmitting: false,
+      form: useForm({
+        title: '',
+        body: '',
+        attachments: null,
+        errors: {}
+      })
     }
+  },
 
-    const submitEntry = async () => {
-      form.body = quill.value.root.innerHTML
+  mounted() {
+    this.quill = new Quill(this.$refs.editorEl, {
+      theme: 'snow'
+    })
+  },
+
+  methods: {
+    handleFileUpload(event) {
+      this.form.attachments = event.target.files[0]
+    },
+
+    async submitEntry() {
+      this.form.body = this.quill.root.innerHTML
 
       const result = await Swal.fire({
         title: 'Submit entry?',
         showCancelButton: true,
-        confirmButtonText: 'Yes',
+        confirmButtonText: 'Yes'
       })
 
       if (result.isConfirmed) {
-        isSubmitting.value = true
+        this.isSubmitting = true
 
         try {
           const formData = new FormData()
-          formData.append('title', form.title)
-          formData.append('body', form.body)
-          formData.append('attachments', form.attachments)
+          formData.append('title', this.form.title)
+          formData.append('body', this.form.body)
+          formData.append('attachments', this.form.attachments)
 
-          Inertia.post('/news/store/1', formData, {
+          Inertia.post(this.postUrl, formData, {
             onError: (error) => {
-              form.errors = error.response.data.errors || {}
+              this.form.errors = error.response?.data?.errors || {}
             },
             onSuccess: () => {
-                Swal.fire({
+              Swal.fire({
                 title: 'Success!',
                 text: 'We will be reviewing this shortly',
                 icon: 'success',
-                confirmButtonText: 'Okay', 
-                backdrop: false, 
+                confirmButtonText: 'Okay',
+                backdrop: false
               }).then(() => {
-                const modalBackdrop = document.querySelector('.modal-backdrop');
-                const modalElement = document.getElementById('staticBackdrop');
-                const modalInstance = bootstrap.Modal.getInstance(modalElement);
-                const modalOpen = document.body;
+                const modalBackdrop = document.querySelector('.modal-backdrop')
+                const modalElement = document.getElementById('staticBackdrop')
+                const modalInstance = bootstrap.Modal.getInstance(modalElement)
 
-                if (modalInstance) modalInstance.hide();
-                if (modalBackdrop) modalBackdrop.remove();
+                if (modalInstance) modalInstance.hide()
+                if (modalBackdrop) modalBackdrop.remove()
 
-                document.body.style.overflow = 'auto';
-                modalOpen.style.overflow = 'auto';
-                
-              });
-              form.reset();
-              quill.value.setContents([]);
+                document.body.style.overflow = 'auto'
+              })
+
+              this.form.reset()
+              this.quill.setContents([])
             }
           })
         } catch (error) {
           console.error('An error occurred:', error)
         } finally {
-          isSubmitting.value = false
+          this.isSubmitting = false
         }
       }
-    }
-
-    nextTick(() => {
-      if (editorEl.value && !quill.value) {
-        quill.value = new Quill(editorEl.value, {
-          theme: 'snow'
-        })
-      }
-    })
-
-    return {
-      editorEl,
-      quill,
-      form,
-      isSubmitting,
-      handleFileUpload,
-      submitEntry
     }
   }
 }
 </script>
+
 
 <style scoped>
   .attachment-field {
