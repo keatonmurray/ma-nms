@@ -24,10 +24,7 @@
                 </span>
               </h3>
             </div>
-  
-            <p class="paragraph">
-                {{ entry.body }}
-            </p>
+            <p class="paragraph" v-html="entry.body"></p>
           </div>
   
           <div class="modal-footer">
@@ -57,7 +54,7 @@
         getAttachmentPath(path) {
             if (!path) return '';
             const cleanedPath = path.replace(/^"+|"+$/g, '');
-            return `/assets/images/${cleanedPath}`;
+            return `/storage/${cleanedPath}`;
         }
     }
   }
