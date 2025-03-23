@@ -1,6 +1,6 @@
 <template>
   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="staticBackdropLabel">
@@ -22,7 +22,7 @@
 
             <div class="mb-3">
               <label class="form-label">Content</label>
-              <div ref="editorEl" class="editor" style="height: 200px;"></div>
+              <div ref="editorEl" class="editor" style="height: 450px;"></div>
             </div>
           </form>
         </div>

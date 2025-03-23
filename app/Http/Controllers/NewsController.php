@@ -23,21 +23,23 @@ class NewsController extends Controller
     {
         $id = Auth::id(); 
 
-        if($this->isAdmin()) 
-        {
+        if ($this->isAdmin()) {
             return DB::table('news')
                 ->join('users', 'news.user_id', '=', 'users.id')
                 ->where('news.status', '!=', 'Draft') 
                 ->select('news.*', 'users.name as author_name')
+                ->orderBy('news.created_at', 'desc') 
                 ->get();
         } else {
             return DB::table('news')
                 ->join('users', 'news.user_id', '=', 'users.id')
                 ->where('news.user_id', $id)
                 ->select('news.*', 'users.name as author_name')
+                ->orderBy('news.created_at', 'desc') 
                 ->get();
         }
     }
+
 
     /**
      * Show the form for creating a new resource.

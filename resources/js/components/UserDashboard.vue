@@ -20,7 +20,7 @@
                         @set-draft="updateSubmission"
                     />
                      <!-- Modals -->
-                    <CreateNews />
+                     <CreateNews :postUrl="`/news/store/${user.id}`" />
                     <EditNews />
                     <ViewSubmission :entry="selectedEntry" />
                     <!-- End Modals -->
