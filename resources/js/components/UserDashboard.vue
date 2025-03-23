@@ -15,12 +15,14 @@
                 <div id="news-table">
                     <DataTable 
                         :news="news" 
+                        @show="displayEntry"
                         @delete-news="deleteSubmission"
                         @set-draft="updateSubmission"
                     />
                      <!-- Modals -->
                     <CreateNews />
                     <EditNews />
+                    <ViewSubmission :entry="selectedEntry" />
                     <!-- End Modals -->
                 </div>
             </div>
@@ -34,6 +36,7 @@
     import Header from './partials/Header.vue';
     import CreateNews from './modals/CreateNews.vue';
     import EditNews from './modals/EditNews.vue';
+    import ViewSubmission from './modals/ViewSubmission.vue';
     import Subheader from './partials/Subheader.vue';
     import DataTable from './tables/user/DataTable.vue';
     import Sidebar from './tables/user/Sidebar.vue';
@@ -44,11 +47,17 @@
                 Header,
                 CreateNews,
                 EditNews,
+                ViewSubmission,
                 Subheader,
                 DataTable,
                 Sidebar,
                 Cards   
             }, 
+            data() {
+                return {
+                    selectedEntry: null
+                }
+            },
             computed: {
                 countAll() {
                     return this.news.length;
@@ -60,7 +69,8 @@
                 approvedCount: Number,
                 pendingNews: Number,
                 draftedNews: Number,
-                user: Object
+                user: Object,
+                entry: Object
             },
             mounted() {
                 this.news
@@ -69,6 +79,7 @@
                 this.pendingNews
                 this.draftedNews
                 this.user
+                this.entry
             },
             methods: {
                 deleteSubmission(item) {
@@ -108,6 +119,9 @@
                             });
                         }
                     });
+                },
+                displayEntry(item) {
+                    this.selectedEntry = item
                 }
         }
     }
